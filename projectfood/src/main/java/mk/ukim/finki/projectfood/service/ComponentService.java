@@ -12,4 +12,6 @@ public interface ComponentService {
 
     Component getComponentByName(String name);
 
+    void mapComponentToCompounds();
+
 }

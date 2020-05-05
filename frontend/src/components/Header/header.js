@@ -18,6 +18,12 @@ const header = (props) => {
                         <li className="nav-item ">
                             <Link className={"nav-link"} to={"/component"}>Component</Link>
                         </li>
+                        <li className="nav-item ">
+                            <Link className={"nav-link"} to={"/nutrients"}>Nutrients</Link>
+                        </li>
+                        <li className="nav-item ">
+                            <Link className={"nav-link"} to={"/streams"}>Waste Streams</Link>
+                        </li>
                     </ul>
                     <form className="form-inline mt-2 mt-md-0 ml-3">
                         <Link className={"btn btn-outline-info my-2 my-sm-0"} to={"/login"}>Login</Link>

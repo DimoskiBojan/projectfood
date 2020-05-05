@@ -31,6 +31,9 @@ const FoodDetails = (props) => {
                         <table className="table">
                             <tbody>
                             <tr>
+                                <td colSpan="2" className="bg-secondary text-white font-weight-bold">Information</td>
+                            </tr>
+                            <tr>
                                 <td className="bg-info text-white font-weight-bold">Name:</td>
                                 <td>{food.name}</td>
                             </tr>
@@ -43,12 +46,18 @@ const FoodDetails = (props) => {
                                 <td>{food.description || "Not available"}</td>
                             </tr>
                             <tr>
+                                <td colSpan="2" className="bg-secondary text-white font-weight-bold">Classification</td>
+                            </tr>
+                            <tr>
                                 <td className="bg-info text-white font-weight-bold">Category:</td>
                                 <td>{food.category}</td>
                             </tr>
                             <tr>
                                 <td className="bg-info text-white font-weight-bold">Subcategory:</td>
                                 <td>{food.subcategory || "Not available"}</td>
+                            </tr>
+                            <tr>
+                                <td colSpan="2" className="bg-secondary text-white font-weight-bold">External sources</td>
                             </tr>
                             <tr>
                                 <td className="bg-info text-white font-weight-bold">Same As:</td>
@@ -58,6 +67,33 @@ const FoodDetails = (props) => {
                                             <li><a href={sameAs} target="_blank">{sameAs}</a></li>
                                         ))}
                                     </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan="2" className="bg-secondary text-white font-weight-bold">Components and Wastestreams</td>
+                            </tr>
+                            <tr>
+                                <td colSpan="2">
+                                    <div>
+                                        <div className="table-responsive">
+                                            <table className="table tr-history table-striped small table-hover" id="componentWastestreamTable">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Component Name</th>
+                                                    <th scope="col">WasteStream Name</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {food.foodComponents && food.foodComponents.map(foodComponent => (
+                                                    <tr>
+                                                        <td><a href={"/component/" + foodComponent.component.id + "/details"}>{foodComponent.component.name}</a></td>
+                                                        <td>{String(foodComponent.wasteStreamName)}</td>
+                                                    </tr>
+                                                ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>

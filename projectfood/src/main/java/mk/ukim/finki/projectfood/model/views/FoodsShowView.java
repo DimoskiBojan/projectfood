@@ -1,13 +1,13 @@
 package mk.ukim.finki.projectfood.model.views;
 
 import lombok.Data;
+import mk.ukim.finki.projectfood.model.FoodComponent;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Subselect("select * from foods_show")
@@ -33,4 +33,7 @@ public class FoodsShowView {
 
     @Column(name = "sameas")
     private String sameAs;
+
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+    private List<FoodComponent> foodComponents;
 }

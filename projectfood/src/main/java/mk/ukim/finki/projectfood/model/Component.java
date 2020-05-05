@@ -3,6 +3,7 @@ package mk.ukim.finki.projectfood.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,5 +18,8 @@ public class Component {
     @OneToOne
     @JoinColumn(name = "compound_id")
     private Compounds compound;
+
+    /*@OneToMany(mappedBy = "component", cascade = CascadeType.ALL)
+    private List<FoodComponent> foodComponents;*/
 
 }

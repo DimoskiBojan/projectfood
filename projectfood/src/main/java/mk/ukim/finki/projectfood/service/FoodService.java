@@ -21,6 +21,8 @@ public interface FoodService {
 
     Food updateFoodSameAs(Integer id, String sameAs);
 
+    Food updateFoodSameAsSingleUrl(Integer id, String sameAs);
+
     void mapFoodToFoods();
 
     void mapFoodToFOODON();

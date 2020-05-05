@@ -1,29 +1,29 @@
 import React, {useEffect} from "react";
-import FoodListItem from "../FoodListItem/foodListItem";
+import ComponentListItem from "../ComponentListItem/componentListItem";
 import $ from 'jquery';
 import 'datatables.net';
 
-const FoodList = (props) => {
+const ComponentList = (props) => {
 
     useEffect(() => {
         $(document).ready( function () {
             // DataTable
-            $('#foodTable').DataTable();
+            $('#componentTable').DataTable();
         });
     });
 
-    if(props.food.length === 0){
+    if(props.component.length === 0){
         return (
             <div className="row">
-                <h4>There are currently no foods available.</h4>
+                <h4>There are currently no components available.</h4>
             </div>
         )
     }
     return (
         <div className="row">
-            <h4 className="text-upper text-left mb-4">Showing Foods</h4>
+            <h4 className="text-upper text-left mb-4">Showing Components</h4>
             <div className="table-responsive">
-                <table className="table tr-history table-striped small" id="foodTable">
+                <table className="table tr-history table-striped small" id="componentTable">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -32,8 +32,8 @@ const FoodList = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {props.food.map(food => (
-                        <FoodListItem key={food.id} food={food} />
+                    {props.component.map(component => (
+                        <ComponentListItem key={component.id} component={component} />
                     ))}
                     </tbody>
                 </table>
@@ -42,4 +42,4 @@ const FoodList = (props) => {
     )
 };
 
-export default FoodList;
+export default ComponentList;

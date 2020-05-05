@@ -1,5 +1,6 @@
 package mk.ukim.finki.projectfood;
 
+import mk.ukim.finki.projectfood.service.ComponentService;
 import mk.ukim.finki.projectfood.service.FoodService;
 import mk.ukim.finki.projectfood.service.FoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,15 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     private FoodsService foodsService;
 
+    @Autowired
+    private ComponentService componentService;
+
     @Override
     public void run(String...args) throws Exception {
         //foodService.mapFoodToFoods();
         //foodsService.populateSameAs();
         //foodService.mapFoodToFOODON();
 
-        //componentService.mapComponentToComponents();
+        //componentService.mapComponentToCompounds();
     }
 }

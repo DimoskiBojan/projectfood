@@ -3,6 +3,7 @@ package mk.ukim.finki.projectfood.service.impl;
 import mk.ukim.finki.projectfood.model.Food;
 import mk.ukim.finki.projectfood.model.Foods;
 import mk.ukim.finki.projectfood.model.events.FoodUpdatedEvent;
+import mk.ukim.finki.projectfood.model.exceptions.FoodNotFoundException;
 import mk.ukim.finki.projectfood.model.views.FoodsShowView;
 import mk.ukim.finki.projectfood.repository.FoodRepository;
 import mk.ukim.finki.projectfood.repository.views.FoodsShowViewRepository;
@@ -54,13 +55,11 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Food getFood(Integer id) {
-        return foodRepository.findById(id).orElse(null);
+        return foodRepository.findById(id).orElseThrow(FoodNotFoundException::new);
     }
 
     @Override
-    public FoodsShowView getFoodShow(Integer id) {
-        return foodsShowViewRepository.findById(id).orElse(null);
-    }
+    public FoodsShowView getFoodShow(Integer id) { return foodsShowViewRepository.findById(id).orElseThrow(FoodNotFoundException::new); }
 
     @Override
     public Food getFoodByName(String name) {
@@ -71,17 +70,26 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Food updateFoodSameAs(Integer id, String sameAs) {
         Food food = this.getFood(id);
-        // Code for updating single sameAs url
-        /*if (food.getSameAs() != null && !food.getSameAs().isEmpty()) {
+        food.setSameAs(sameAs);
+
+        foodRepository.save(food);
+        eventPublisher.publishEvent(new FoodUpdatedEvent(food));
+
+        return food;
+    }
+
+    @Override
+    public Food updateFoodSameAsSingleUrl(Integer id, String sameAs) {
+        Food food = this.getFood(id);
+        if (food.getSameAs() != null && !food.getSameAs().isEmpty()) {
             if(!food.getSameAs().contains(sameAs)) {
                 String newSameAs = food.getSameAs().concat(";" + sameAs);
                 food.setSameAs(newSameAs);
             }
         } else {
             food.setSameAs(";" + sameAs);
-        }*/
+        }
 
-        food.setSameAs(sameAs);
         foodRepository.save(food);
         eventPublisher.publishEvent(new FoodUpdatedEvent(food));
 
@@ -127,7 +135,7 @@ public class FoodServiceImpl implements FoodService {
                 try {
                     if(i < json.length())
                     System.out.println(term + ": " + json.getJSONObject(i).get("iri"));
-                    this.updateFoodSameAs(food.getId(), (String) json.getJSONObject(i).get("iri"));
+                    this.updateFoodSameAsSingleUrl(food.getId(), (String) json.getJSONObject(i).get("iri"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

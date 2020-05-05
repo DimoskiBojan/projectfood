@@ -1,39 +1,38 @@
 import React, {useEffect} from "react";
-import FoodListItem from "../FoodListItem/foodListItem";
+import NutrientListItem from "../NutrientListItem/nutrientListItem";
 import $ from 'jquery';
 import 'datatables.net';
 
-const FoodList = (props) => {
+const NutrientList = (props) => {
 
     useEffect(() => {
         $(document).ready( function () {
             // DataTable
-            $('#foodTable').DataTable();
+            $('#nutrientsTable').DataTable();
         });
     });
 
-    if(props.food.length === 0){
+    if(props.nutrients.length === 0){
         return (
             <div className="row">
-                <h4>There are currently no foods available.</h4>
+                <h4>There are currently no nutrients available.</h4>
             </div>
         )
     }
     return (
         <div className="row">
-            <h4 className="text-upper text-left mb-4">Showing Foods</h4>
+            <h4 className="text-upper text-left mb-4">Showing Nutrients</h4>
             <div className="table-responsive">
-                <table className="table tr-history table-striped small" id="foodTable">
+                <table className="table tr-history table-striped small" id="nutrientsTable">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Category</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {props.food.map(food => (
-                        <FoodListItem key={food.id} food={food} />
+                    {props.nutrients.map(nutrient => (
+                        <NutrientListItem key={nutrient.id} nutrient={nutrient} />
                     ))}
                     </tbody>
                 </table>
@@ -42,4 +41,4 @@ const FoodList = (props) => {
     )
 };
 
-export default FoodList;
+export default NutrientList;
