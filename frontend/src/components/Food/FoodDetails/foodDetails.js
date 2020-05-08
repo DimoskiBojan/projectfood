@@ -1,24 +1,28 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import axios from '../../../custom-axios/axios'
+import { trackPromise } from 'react-promise-tracker';
 
 const FoodDetails = (props) => {
     const [food, setFood] = useState({});
     const {foodId} = useParams();
 
     useEffect(() => {
+        trackPromise(
         axios.get("/api/food/" + foodId).then((response) => {
             setFood(response.data);
-        });
+        }));
     }, []);
 
     const splitSameAs = (sameAs) => {
         return (String(sameAs).split(";")).slice(1);
     };
 
+    if(typeof food.foodComponents === 'undefined') return null;
     return (
         <div>
             <div className="row">
+                <Link to={"/food"} className="btn btn-sm btn-info mr-2">Back to Foods</Link>
                 <h4 className="text-upper text-left">Details about {food.name}</h4>
             </div>
             <hr/>
@@ -86,7 +90,7 @@ const FoodDetails = (props) => {
                                                 <tbody>
                                                 {food.foodComponents && food.foodComponents.map(foodComponent => (
                                                     <tr>
-                                                        <td><a href={"/component/" + foodComponent.component.id + "/details"}>{foodComponent.component.name}</a></td>
+                                                        <td><a href={"/component/" + foodComponent.id.componentId + "/details"}>{foodComponent.componentName}</a></td>
                                                         <td>{String(foodComponent.wasteStreamName)}</td>
                                                     </tr>
                                                 ))}

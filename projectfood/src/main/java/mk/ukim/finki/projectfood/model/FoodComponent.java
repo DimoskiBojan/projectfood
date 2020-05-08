@@ -30,6 +30,7 @@ public class FoodComponent implements Serializable {
     @MapsId("componentId")
     @JoinColumn(name = "component_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private Component component;
 
     @Column(name = "wastestream_name")

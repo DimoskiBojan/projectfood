@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import axios from '../../../custom-axios/axios'
+import { trackPromise } from 'react-promise-tracker';
 
 const ComponentDetails = (props) => {
     const [component, setComponent] = useState({});
     const {componentId} = useParams();
 
     useEffect(() => {
+        trackPromise(
         axios.get("/api/component/" + componentId).then((response) => {
             setComponent(response.data);
-        });
+        }));
     }, []);
 
+    if(typeof component.foodComponents === 'undefined') return null;
     return (
         <div>
             <div className="row">
+                <Link to={"/component"} className="btn btn-sm btn-info mr-2">Back to Components</Link>
                 <h4 className="text-upper text-left">Details about {component.name}</h4>
             </div>
             <hr/>
@@ -48,6 +52,33 @@ const ComponentDetails = (props) => {
                                             <li><a href={sameAs} target="_blank">{sameAs}</a></li>
                                         ))}*/}
                                     </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan="2" className="bg-secondary text-white font-weight-bold">Associated Foods and Wastestreams</td>
+                            </tr>
+                            <tr>
+                                <td colSpan="2">
+                                    <div>
+                                        <div className="table-responsive">
+                                            <table className="table tr-history table-striped small table-hover" id="componentWastestreamTable">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Food Name</th>
+                                                    <th scope="col">WasteStream Name</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {component.foodComponents && component.foodComponents.map(foodComponent => (
+                                                    <tr>
+                                                        <td><a href={"/food/" + foodComponent.id.foodId + "/details"}>{foodComponent.foodName}</a></td>
+                                                        <td>{String(foodComponent.wasteStreamName)}</td>
+                                                    </tr>
+                                                ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>

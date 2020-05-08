@@ -49,6 +49,11 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public List<Food> getFoodsByCategory(String category) {
+        return foodRepository.findByCategory(category);
+    }
+
+    @Override
     public Page<Food> getAllFoods(int page, int size) {
         return this.foodRepository.findAll(PageRequest.of(page, size));
     }

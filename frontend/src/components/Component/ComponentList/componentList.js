@@ -24,14 +24,14 @@ const ComponentList = (props) => {
             <h4 className="text-upper text-left mb-4">Showing Components</h4>
             <div className="table-responsive">
                 <table className="table tr-history table-striped small" id="componentTable">
-                    <thead>
+                    <thead className="h6">
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="h6">
                     {props.component.map(component => (
                         <ComponentListItem key={component.id} component={component} />
                     ))}

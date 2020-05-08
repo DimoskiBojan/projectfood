@@ -19,7 +19,7 @@ public class Component {
     @JoinColumn(name = "compound_id")
     private Compounds compound;
 
-    /*@OneToMany(mappedBy = "component", cascade = CascadeType.ALL)
-    private List<FoodComponent> foodComponents;*/
+    @OneToMany(mappedBy = "component", cascade = CascadeType.ALL)
+    private List<FoodComponent> foodComponents;
 
 }

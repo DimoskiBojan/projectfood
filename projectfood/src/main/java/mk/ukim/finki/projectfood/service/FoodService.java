@@ -11,6 +11,8 @@ public interface FoodService {
 
     List<FoodsShowView> getAllFoodsShow();
 
+    List<Food> getFoodsByCategory(String category);
+
     Page<Food> getAllFoods(int page, int size);
 
     Food getFood(Integer id);

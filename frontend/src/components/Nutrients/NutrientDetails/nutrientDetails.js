@@ -1,20 +1,23 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import axios from '../../../custom-axios/axios'
+import { trackPromise } from 'react-promise-tracker';
 
 const NutrientDetails = (props) => {
     const [nutrient, setNutrient] = useState({});
     const {nutrientId} = useParams();
 
     useEffect(() => {
+        trackPromise(
         axios.get("/api/nutrients/" + nutrientId).then((response) => {
             setNutrient(response.data);
-        });
+        }));
     }, []);
 
     return (
         <div>
             <div className="row">
+                <Link to={"/nutrients"} className="btn btn-sm btn-info mr-2">Back to Nutrients</Link>
                 <h4 className="text-upper text-left">Details about {nutrient.name}</h4>
             </div>
             <hr/>

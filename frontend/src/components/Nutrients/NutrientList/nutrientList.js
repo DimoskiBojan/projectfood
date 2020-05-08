@@ -24,13 +24,13 @@ const NutrientList = (props) => {
             <h4 className="text-upper text-left mb-4">Showing Nutrients</h4>
             <div className="table-responsive">
                 <table className="table tr-history table-striped small" id="nutrientsTable">
-                    <thead>
+                    <thead className="h6">
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="h6">
                     {props.nutrients.map(nutrient => (
                         <NutrientListItem key={nutrient.id} nutrient={nutrient} />
                     ))}

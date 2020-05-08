@@ -24,14 +24,14 @@ const FoodList = (props) => {
             <h4 className="text-upper text-left mb-4">Showing Foods</h4>
             <div className="table-responsive">
                 <table className="table tr-history table-striped small" id="foodTable">
-                    <thead>
+                    <thead className="h6">
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="h6">
                     {props.food.map(food => (
                         <FoodListItem key={food.id} food={food} />
                     ))}

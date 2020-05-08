@@ -28,6 +28,9 @@ public class FoodApi {
     @GetMapping
     public List<FoodsShowView> getAllFoods() { return foodService.getAllFoodsShow(); }
 
+    @GetMapping(params = "category")
+    public List<Food> getFoodsByCategory(String category) { return foodService.getFoodsByCategory(category); }
+
     @GetMapping(headers = "page")
     public Page<Food> getAllFoods(@RequestHeader(name = "page", defaultValue = "0", required = false) int page,
                                               @RequestHeader(name = "page-size", defaultValue = "10", required = false) int size) {

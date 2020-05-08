@@ -13,6 +13,9 @@ const FoodService = {
             }
         })
     },
+    fetchStreams: () => {
+        return axios.get("/api/food/streams");
+    },
     fetchById: (foodId) => {
         return axios.get(`/api/food/${foodId}`);
     },
