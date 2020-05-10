@@ -1,0 +1,63 @@
+Food	FooDB
+Algae	Red Algae id 615
+Animal by-products, unspecified	No Match
+Argan	No Match
+Aubergine	Eggplant id 174 DONE
+Babassu	Babassu palm id 798
+Bakery No Match
+Bamboo Bamboo shoots id 298
+Beetroot Red beetroot id 264
+Bolti	Cichlidae (Tilapia) id 723 DONE
+Bran	No Match
+Bread	Many types of Bread
+Brewer's yeast/grains, unspecified No Match
+Brussels sprouts	Many types of cabbage
+Cacao/cocoa	Many types (bean or powder?)
+Castor	No Match
+Cereal, unspecified	Many matches
+Citrus, unspecified Many matches
+Cotton	Cottonseed id 346 DONE
+Courgette Two Types
+Crambe No Match
+Crawfish	Crayfish id 547 DONE
+Courgette	Many (Green zucchini, Yellow zucchini)	id 907,908
+Blueberry	Many Types11:42 PM 5/6/2020
+Distillers grain	No match
+Distillery by-products, unspecified	No match
+Fish,unspecified  Many
+Flax/linseed	Flax 	id-101
+Food,unspecified	No match
+Frog	True Frog	id-592
+Fruit and vegetables	No match
+Grain,unspecified	No match 
+Green waste		No match
+Greenhouse waste	No match
+Hemp			No match
+Hop			No match
+Juices,unspecified	Many matches (2)
+Melon			Many matches
+Milk			Many matches (soy, mammals, cow)
+Nuts,unspecified	Many matches (mixed, nuts(id 885))
+Orange			Many mathces? (sweet orange(id-85), mandarine orange)
+Palm			Many matches
+Pea			Many matches (common pea (id-141), pigeon, chickpea)
+Peanuts			Peanut 	id-16
+Pears			Pear id-152 but many matches (asian pear)
+Pepper			Pepper (Spice) id-139 but many matches (black pepper, sweet red pepper)
+Plantain		French Plantain (id-444)
+Potato products		Many matches (potato, sweet potato, baked potato)
+Poultry			No matches
+Prunes			No match
+Pumpkin			No match
+Soy			Many matches (milk, cream,sauce)
+Sponge gourd		Many matches/types of gourds
+Starfish		No matches
+Straw			No matches (otherwise wheat..)
+Sugar beet		No matches (otherwise sugar, common beet)
+Sugar by-products, unspecified No matches
+Sugar cane		No matches (molasses (id-811) which is refined sugar cane)
+Sweet 			NO matches (types of sweets)
+Toad			no matches
+Tomatoes		Many matches (cherry, garden..)
+Wine by-products, unspecified NO matches(many types of wine)
+Yoghurt			Many matches (frozen yogurt, yogurt)

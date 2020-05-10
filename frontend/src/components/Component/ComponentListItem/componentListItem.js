@@ -6,6 +6,7 @@ const ComponentListItem = (props) => {
         <tr>
             <td><a href={"/component/" + props.component.id + "/details"}>{props.component.name}</a></td>
             <td>{props.component.category_name}</td>
+            <td>{props.component.moldb_formula || "Not available"}</td>
             <td>
                 <Link to={"/component/" + props.component.id + "/edit"}>
                     <button className="btn btn-sm btn-secondary">

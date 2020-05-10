@@ -41,28 +41,28 @@ class App extends Component {
     trackPromise(
     foodService.fetchFoods().then(response => {
         this.setState({"food": response.data})
-    }));
+    }), "foods-area");
   };
 
   loadComponent = () => {
     trackPromise(
     componentService.fetchComponents().then(response => {
         this.setState({"component": response.data})
-    }));
+    }), "components-area");
   };
 
   loadStreams = () => {
     trackPromise(
     foodService.fetchStreams().then(response => {
       this.setState({"streams": response.data})
-    }));
+    }), "streams-area");
   };
 
   loadNutrients = () => {
     trackPromise(
     nutrientsService.fetchNutrients().then(response => {
       this.setState({"nutrients": response.data})
-    }));
+    }), "nutrients-area");
   };
 
   updateFoodSameAs = (food) => {
@@ -90,7 +90,7 @@ class App extends Component {
              <div className="container">
                <Switch>
                  <Route path={"/streams/"}>
-                   <LoadingIndicator/>
+                   <LoadingIndicator area={"streams-area"}/>
                    <StreamsList streams={this.state.streams}/>
                  </Route>
                  <Route path={"/food/:foodId/details"}>
@@ -98,7 +98,7 @@ class App extends Component {
                    <FoodDetails/>
                  </Route>
                  <Route path={"/food/"}>
-                   <LoadingIndicator/>
+                   <LoadingIndicator area={"foods-area"}/>
                    <FoodList food={this.state.food}/>
                  </Route>
                  <Route path={"/component/:componentId/details"}>
@@ -106,7 +106,7 @@ class App extends Component {
                    <ComponentDetails/>
                  </Route>
                  <Route path={"/component/"}>
-                   <LoadingIndicator/>
+                   <LoadingIndicator area={"components-area"}/>
                    <ComponentList component={this.state.component}/>
                  </Route>
                  <Route path={"/nutrients/:nutrientId/details"}>
@@ -114,7 +114,7 @@ class App extends Component {
                    <NutrientDetails/>
                  </Route>
                  <Route path={"/nutrients/"}>
-                   <LoadingIndicator/>
+                   <LoadingIndicator area={"nutrients-area"}/>
                    <NutrientList nutrients={this.state.nutrients}/>
                  </Route>
                  <Route path={"/automap/"}>

@@ -1,6 +1,7 @@
 package mk.ukim.finki.projectfood.web;
 
 import mk.ukim.finki.projectfood.model.Component;
+import mk.ukim.finki.projectfood.model.views.ComponentsShowView;
 import mk.ukim.finki.projectfood.service.ComponentService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,10 @@ public class ComponentApi {
     }
 
     @GetMapping
-    public List<Component> getAllComponents() { return componentService.getAllComponents(); }
+    public List<ComponentsShowView> getAllComponents() { return componentService.getAllComponentsShow(); }
 
     @GetMapping("/{id}")
-    public Component getComponent(@PathVariable("id") Integer id) {
-        return componentService.getComponent(id);
+    public ComponentsShowView getComponent(@PathVariable("id") Integer id) {
+        return componentService.getComponentShow(id);
     }
 }

@@ -1,3 +1,4 @@
+/*
 package mk.ukim.finki.projectfood;
 
 import mk.ukim.finki.projectfood.service.ComponentService;
@@ -27,3 +28,4 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         //componentService.mapComponentToCompounds();
     }
 }
+*/

@@ -45,7 +45,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public List<FoodsShowView> getAllFoodsShow() {
-        return foodsShowViewRepository.findAll();
+        return foodsShowViewRepository.fetchAll();
     }
 
     @Override

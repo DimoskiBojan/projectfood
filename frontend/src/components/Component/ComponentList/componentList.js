@@ -28,6 +28,7 @@ const ComponentList = (props) => {
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Formula</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
