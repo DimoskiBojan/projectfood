@@ -10,28 +10,28 @@ const AutoMap = (props) => {
         trackPromise(
         axios.get("/api/automap/food-external").then((response) => {
             setAutoMap({"status": "Complete"});
-        }));
+        }), "automap-area");
     };
 
     const autoMapFoodToFoods = () => {
         trackPromise(
         axios.get("/api/automap/food-foods").then((response) => {
             setAutoMap({"status": "Complete"});
-        }));
+        }), "automap-area");
     };
 
     const autoMapFoodsToDbpedia = () => {
         trackPromise(
         axios.get("/api/automap/foods-dbpedia").then((response) => {
             setAutoMap({"status": "Complete"});
-        }));
+        }), "automap-area");
     };
 
     const autoMapComponentToCompounds = () => {
         trackPromise(
         axios.get("/api/automap/component-compounds").then((response) => {
             setAutoMap({"status": "Complete"});
-        }));
+        }), "automap-area");
     };
 
     return (

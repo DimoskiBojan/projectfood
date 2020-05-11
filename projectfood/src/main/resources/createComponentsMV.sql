@@ -27,7 +27,8 @@ SELECT comp.id AS component_id,
     comps.moldb_logp,
     comps.moldb_alogps_logs,
     comps.moldb_pka,
-    comps.moldb_alogps_solubility
+    comps.moldb_alogps_solubility,
+    comp.sameas
    FROM component comp
      LEFT JOIN compounds comps ON comp.compound_id = comps.id
 WITH DATA;

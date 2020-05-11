@@ -19,6 +19,8 @@ public interface ComponentService {
 
     void mapComponentToCompounds();
 
+    public void populateSameAs();
+
     void refreshMV();
 
 }

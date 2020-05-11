@@ -26,6 +26,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         //foodService.mapFoodToFOODON();
 
         //componentService.mapComponentToCompounds();
+        //componentService.populateSameAs();
     }
 }
 */

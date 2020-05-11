@@ -35,4 +35,7 @@ public class AutoMapApi {
     @GetMapping("/component-compounds")
     public void autoMapComponentToCompounds() { componentService.mapComponentToCompounds(); }
 
+    @GetMapping("/component-external")
+    public void autoMapComponentToExternal() { componentService.populateSameAs(); }
+
 }

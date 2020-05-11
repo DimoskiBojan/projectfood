@@ -44,6 +44,9 @@ public class ComponentsShowView {
     private String moldb_pka;
     private String moldb_alogps_solubility;
 
+    @Column(name = "sameas")
+    private String sameAs;
+
     @OneToMany(mappedBy = "component", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FoodComponent> foodComponents;
 }

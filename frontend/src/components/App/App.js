@@ -119,7 +119,7 @@ class App extends Component {
                  </Route>
                  <Route path={"/automap/"}>
                    <AutoMap/>
-                   <LoadingIndicator/>
+                   <LoadingIndicator area={"automap-area"}/>
                  </Route>
                  <Route path={"/login"}>
                    <AdminLogin/>

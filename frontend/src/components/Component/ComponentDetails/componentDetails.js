@@ -14,6 +14,10 @@ const ComponentDetails = (props) => {
         }));
     }, []);
 
+    const splitSameAs = (sameAs) => {
+        return (String(sameAs).split(";")).slice(1);
+    };
+
     if(typeof component.foodComponents === 'undefined') return null;
     return (
         <div>
@@ -145,9 +149,9 @@ const ComponentDetails = (props) => {
                                 <td className="bg-info text-white font-weight-bold">Same As:</td>
                                 <td>
                                     <ul>
-                                        {/*{splitSameAs(food.sameAs).map(sameAs => (
+                                        {splitSameAs(component.sameAs).map(sameAs => (
                                             <li><a href={sameAs} target="_blank">{sameAs}</a></li>
-                                        ))}*/}
+                                        ))}
                                     </ul>
                                 </td>
                             </tr>

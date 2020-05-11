@@ -19,6 +19,9 @@ public class Component {
     @JoinColumn(name = "compound_id")
     private Compounds compound;
 
+    @Column(name = "sameas")
+    private String sameAs;
+
     /*@OneToMany(mappedBy = "component", cascade = CascadeType.ALL)
     private List<FoodComponent> foodComponents;*/
 
