@@ -27,7 +27,6 @@ const NutrientList = (props) => {
                     <thead className="h6">
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody className="h6">

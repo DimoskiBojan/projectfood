@@ -8,14 +8,8 @@ const ComponentListItem = (props) => {
             <td>{props.component.category_name}</td>
             <td>{props.component.moldb_formula || "Not available"}</td>
             <td>
-                <Link to={"/component/" + props.component.id + "/edit"}>
+                <Link to={"/component/" + props.component.id + "/map-compounds"}>
                     <button className="btn btn-sm btn-secondary">
-                        <span className="fa fa-edit"/>
-                        <span><strong>Edit</strong></span>
-                    </button>
-                </Link>
-                <Link to={"/component/" + props.component.id + "/map"}>
-                    <button className="btn btn-sm btn-outline-dark">
                         <span><strong>Map</strong></span>
                     </button>
                 </Link>

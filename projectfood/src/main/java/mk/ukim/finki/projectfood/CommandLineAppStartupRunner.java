@@ -2,6 +2,7 @@
 package mk.ukim.finki.projectfood;
 
 import mk.ukim.finki.projectfood.service.ComponentService;
+import mk.ukim.finki.projectfood.service.CompoundsService;
 import mk.ukim.finki.projectfood.service.FoodService;
 import mk.ukim.finki.projectfood.service.FoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     private ComponentService componentService;
 
+    @Autowired
+    private CompoundsService compoundsService;
+
     @Override
     public void run(String...args) throws Exception {
         //foodService.mapFoodToFoods();
@@ -27,6 +31,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
         //componentService.mapComponentToCompounds();
         //componentService.populateSameAs();
+        //System.out.println(compoundsService.lookupCompoundsByName("N"));
     }
 }
 */

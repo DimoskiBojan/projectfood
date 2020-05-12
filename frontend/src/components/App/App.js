@@ -17,6 +17,7 @@ import { trackPromise } from 'react-promise-tracker';
 import Home from "../Home/home";
 import AdminLogin from "../Login/adminLogin";
 import StreamsList from "../Streams/StreamsList/streamsList";
+import ComponentCompoundsMap from "../Component/ComponentCompoundsMap/componentCompoundsMap";
 
 class App extends Component {
 
@@ -82,6 +83,13 @@ class App extends Component {
     })
   };
 
+  updateComponentCompoundId = (id, compoundId) => {
+    componentService.updateComponentCompoundId(id, compoundId).then(response => {
+      // component object not available to filter existing state
+      this.loadComponent();
+    })
+  };
+
   render() {
      return (
          <Router>
@@ -104,6 +112,10 @@ class App extends Component {
                  <Route path={"/component/:componentId/details"}>
                    <LoadingIndicator/>
                    <ComponentDetails/>
+                 </Route>
+                 <Route path={"/component/:componentId/map-compounds"}>
+                   <LoadingIndicator/>
+                   <ComponentCompoundsMap onUpdate={this.updateComponentCompoundId}/>
                  </Route>
                  <Route path={"/component/"}>
                    <LoadingIndicator area={"components-area"}/>

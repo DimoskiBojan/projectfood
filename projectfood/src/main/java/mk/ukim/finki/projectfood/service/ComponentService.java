@@ -17,6 +17,8 @@ public interface ComponentService {
 
     Component getComponentByName(String name);
 
+    Component updateCompoundId(Integer id, Integer compoundId);
+
     void mapComponentToCompounds();
 
     public void populateSameAs();

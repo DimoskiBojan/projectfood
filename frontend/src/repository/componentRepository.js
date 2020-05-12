@@ -1,4 +1,5 @@
 import axios from '../custom-axios/axios'
+import qs from "qs";
 
 const ComponentService = {
     fetchComponents: () => {
@@ -6,6 +7,13 @@ const ComponentService = {
     },
     fetchById: (componentId) => {
         return axios.get(`/api/component/${componentId}`);
+    },
+    updateComponentCompoundId: (id, compoundId) => {
+        return axios.patch(`/api/component/${id}`, qs.stringify({'compoundId': compoundId}), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
     }
 };
 

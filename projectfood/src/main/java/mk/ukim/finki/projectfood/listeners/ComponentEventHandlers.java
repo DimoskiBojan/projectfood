@@ -15,7 +15,7 @@ public class ComponentEventHandlers {
 
     @EventListener
     public void onFoodUpdated(ComponentUpdatedEvent event) {
-        System.out.println("Updated " + ((java.awt.Component)event.getSource()).getName());
+        System.out.println("Updated " + ((mk.ukim.finki.projectfood.model.Component)event.getSource()).getName());
         this.componentService.refreshMV();
     }
 }

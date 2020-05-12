@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface CompoundsRepository extends JpaRepository<Compounds, Integer> {
 
-    Compounds findByName(String name);
+    Compounds findByNameIgnoreCase(String name);
 }

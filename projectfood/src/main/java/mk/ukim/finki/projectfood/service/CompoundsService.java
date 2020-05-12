@@ -8,6 +8,9 @@ public interface CompoundsService {
 
     List<Compounds> getAllCompounds();
 
+    Compounds getCompound(Integer id);
+
     Compounds getCompoundsByName(String name);
 
+    List<Compounds> lookupCompoundsByName(String name);
 }

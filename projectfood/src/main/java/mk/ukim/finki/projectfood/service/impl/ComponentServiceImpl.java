@@ -4,6 +4,8 @@ import mk.ukim.finki.projectfood.model.Component;
 import mk.ukim.finki.projectfood.model.Compounds;
 import mk.ukim.finki.projectfood.model.Food;
 import mk.ukim.finki.projectfood.model.Foods;
+import mk.ukim.finki.projectfood.model.events.ComponentUpdatedEvent;
+import mk.ukim.finki.projectfood.model.events.FoodUpdatedEvent;
 import mk.ukim.finki.projectfood.model.exceptions.ComponentNotFoundException;
 import mk.ukim.finki.projectfood.model.views.ComponentsShowView;
 import mk.ukim.finki.projectfood.repository.ComponentRepository;
@@ -58,6 +60,17 @@ public class ComponentServiceImpl implements ComponentService {
     @Override
     public Component getComponentByName(String name) {
         return componentRepository.findByName(name);
+    }
+
+    @Override
+    public Component updateCompoundId(Integer id, Integer compoundId) {
+        Component component = this.getComponent(id);
+        component.setCompound(compoundsService.getCompound(compoundId));
+
+        componentRepository.save(component);
+        eventPublisher.publishEvent(new ComponentUpdatedEvent(component));
+
+        return component;
     }
 
     @Override
