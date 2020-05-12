@@ -15,6 +15,10 @@ const StreamsList = (props) => {
         $(document).ready( function () {
             // DataTable
             let table = $('#streamsTable').DataTable();
+            let term = query.get("term");
+            if(term != null || term !== "") {
+                table.search(term).draw();
+            }
             console.log(query.get("term"));
         });
     });

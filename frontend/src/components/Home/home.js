@@ -2,10 +2,13 @@ import React, {useEffect, useState} from "react";
 import {Link} from 'react-router-dom'
 import $ from "jquery";
 import axios from "../../custom-axios/axios";
+import { useHistory } from "react-router-dom";
 
 const Home = (props) => {
 
     const [foods, setFoods] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    let history = useHistory();
 
     useEffect(() => {
         $(document).ready( function () {
@@ -20,6 +23,21 @@ const Home = (props) => {
             })
         });
     });
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const searchKeyPress = (e) => {
+        if(e.keyCode === 13){
+            console.log('value', e.target.value);
+            history.push("/streams?term=" + searchTerm);
+        }
+    };
+
+    const handleSearch = (e) => {
+        history.push("/streams?term=" + searchTerm);
+    };
 
     return (
         <div>
@@ -76,9 +94,11 @@ const Home = (props) => {
             </div>
             <div className="row justify-content-center">
                 <div className="input-group  border border-info rounded-pill px-1 w-50">
-                    <input type="search" placeholder="Search term" className="form-control bg-none border-0"/>
+                    <input value={searchTerm} onKeyDown={searchKeyPress} onChange={handleSearchChange}
+                           type="search" placeholder="Search term" className="form-control bg-none border-0" />
                         <div className="input-group-append border-0">
-                            <button id="button-search" type="button" className="btn btn-link text-info">
+                            <button id="button-search" type="button" className="btn btn-link text-info"
+                                    onClick={handleSearch}>
                                 <i className="fa fa-search"/>
                             </button>
                         </div>
