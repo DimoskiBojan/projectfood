@@ -28,10 +28,12 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         //foodService.mapFoodToFoods();
         //foodsService.populateSameAs();
         //foodService.mapFoodToFOODON();
+        //foodService.mapFoodToSNOMEDCT();
 
         //componentService.mapComponentToCompounds();
         //componentService.populateSameAs();
         //System.out.println(compoundsService.lookupCompoundsByName("N"));
+
     }
 }
 */

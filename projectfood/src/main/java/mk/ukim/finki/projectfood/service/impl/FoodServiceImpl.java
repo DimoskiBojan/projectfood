@@ -1,5 +1,6 @@
 package mk.ukim.finki.projectfood.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import mk.ukim.finki.projectfood.model.Food;
 import mk.ukim.finki.projectfood.model.Foods;
 import mk.ukim.finki.projectfood.model.events.FoodUpdatedEvent;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class FoodServiceImpl implements FoodService {
@@ -121,7 +123,7 @@ public class FoodServiceImpl implements FoodService {
         List<Food> foodList = foodRepository.findAll();
         foodList.forEach(food -> {
             String term = food.getName();
-            JSONArray json = HttpUtils.getJSONFromUrl(foodON.concat(term));
+            JSONArray json = HttpUtils.getJSONArrayFromUrl(foodON.concat(term));
             if(json != null && json.length() != 0) {
                 int i;
                 for (i = 0; i < json.length(); ++i) {
@@ -138,18 +140,58 @@ public class FoodServiceImpl implements FoodService {
                 }
 
                 try {
-                    if(i < json.length())
-                    System.out.println(term + ": " + json.getJSONObject(i).get("iri"));
-                    this.updateFoodSameAsSingleUrl(food.getId(), (String) json.getJSONObject(i).get("iri"));
+                    if(i < json.length()) {
+                        System.out.println(term + ": " + json.getJSONObject(i).get("iri"));
+                        this.updateFoodSameAsSingleUrl(food.getId(), (String) json.getJSONObject(i).get("iri"));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-
-
-
     }
+
+    @Override
+    public void mapFoodToSNOMEDCT() {
+
+        String SNOMEDCT = "http://data.bioontology.org/search?ontologies=SNOMEDCT&pagesize=10&apikey=d01734b9-8dc5-414c-bef1-d7cd327ccc99&q=";
+
+        List<Food> foodList = foodRepository.findAll();
+        foodList.forEach(food -> {
+            String term = food.getName();
+            JSONArray json = null;
+            try {
+                json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(SNOMEDCT.concat(term))).getJSONArray("collection");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(json != null && json.length() != 0) {
+                int i;
+                for (i = 0; i < json.length(); ++i) {
+                    JSONObject entry = null;
+                    try {
+                        entry = json.getJSONObject(i);
+                        String label = entry.getString("prefLabel");
+                        if (label.equalsIgnoreCase(term)) {
+                            break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                try {
+                    if(i < json.length()) {
+                        System.out.println(term + ": " + json.getJSONObject(i).getJSONObject("links").getString("self"));
+                        this.updateFoodSameAsSingleUrl(food.getId(), json.getJSONObject(i).getJSONObject("links").getString("self"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
     @Override
     public void refreshMV() {

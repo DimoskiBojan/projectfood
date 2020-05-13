@@ -24,7 +24,10 @@ public class AutoMapApi {
     }
 
     @GetMapping("/food-external")
-    public void autoMapFoodToExternal() { foodService.mapFoodToFOODON(); }
+    public void autoMapFoodToExternal() {
+        foodService.mapFoodToFOODON();
+        foodService.mapFoodToSNOMEDCT();
+    }
 
     @GetMapping("/food-foods")
     public void autoMapFoodToFoods() { foodService.mapFoodToFoods(); }

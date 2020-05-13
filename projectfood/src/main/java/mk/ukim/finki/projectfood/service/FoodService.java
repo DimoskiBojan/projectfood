@@ -29,5 +29,7 @@ public interface FoodService {
 
     void mapFoodToFOODON();
 
+    void mapFoodToSNOMEDCT();
+
     void refreshMV();
 }

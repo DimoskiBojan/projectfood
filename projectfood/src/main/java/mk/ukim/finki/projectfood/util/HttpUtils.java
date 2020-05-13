@@ -2,6 +2,7 @@ package mk.ukim.finki.projectfood.util;
 
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,13 +29,13 @@ public final class HttpUtils {
         return statusCode;
     }
 
-    public static JSONArray getJSONFromUrl(String url) {
+    public static JSONArray getJSONArrayFromUrl(String url) {
         JSONArray jsonArray = null;
         HttpURLConnection httpURLConnection = null;
         String jsonString = null;
 
         try {
-            URL u = new URL(url);
+            URL u = new URL(url.replace(" ", "%20"));
             httpURLConnection = (HttpURLConnection) u.openConnection();
             httpURLConnection.setRequestMethod("GET");
             if(httpURLConnection.getResponseCode() >= 400){
@@ -63,5 +64,43 @@ public final class HttpUtils {
         }
 
         return jsonArray;
+    }
+
+    public static JSONObject getJSONObjectFromUrl(String url) {
+        JSONObject jsonObject = null;
+        HttpURLConnection httpURLConnection = null;
+        String jsonString = null;
+
+        try {
+            URL u = new URL(url.replace(" ", "%20"));
+            httpURLConnection = (HttpURLConnection) u.openConnection();
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty("Accept", "application/json");
+            if(httpURLConnection.getResponseCode() >= 400){
+                return null;
+            }
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line + '\n');
+            }
+            jsonString = stringBuilder.toString();
+            httpURLConnection.disconnect();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            jsonObject = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 }
