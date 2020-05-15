@@ -1,0 +1,1311 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://localhost:54320/pfood";
+	d2rq:username "postgres";
+	d2rq:password "secret123";
+	.
+
+# Table component
+map:component a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "component/@@component.id@@";
+	d2rq:class vocab:component;
+	d2rq:classDefinitionLabel "component";
+	.
+map:component__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property rdfs:label;
+	d2rq:pattern "component #@@component.id@@";
+	.
+map:component_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property vocab:component_id;
+	d2rq:propertyDefinitionLabel "component id";
+	d2rq:column "component.id";
+	d2rq:datatype xsd:integer;
+	.
+map:component_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property vocab:component_name;
+	d2rq:propertyDefinitionLabel "component name";
+	d2rq:column "component.name";
+	.
+map:component_category_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property vocab:component_category_id;
+	d2rq:propertyDefinitionLabel "component category_id";
+	d2rq:column "component.category_id";
+	d2rq:datatype xsd:integer;
+	.
+map:component_category_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property vocab:component_category_name;
+	d2rq:propertyDefinitionLabel "component category_name";
+	d2rq:column "component.category_name";
+	.
+map:component_sameas a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property vocab:component_sameas;
+	d2rq:propertyDefinitionLabel "component sameas";
+	d2rq:column "component.sameas";
+	.
+map:component_compound_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:component;
+	d2rq:property vocab:component_compound_id;
+	d2rq:refersToClassMap map:compounds;
+	d2rq:join "component.compound_id => compounds.id";
+	.
+
+# Table compounds
+map:compounds a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "compounds/@@compounds.id@@";
+	d2rq:class vocab:compounds;
+	d2rq:classDefinitionLabel "compounds";
+	.
+map:compounds__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property rdfs:label;
+	d2rq:pattern "compounds #@@compounds.id@@";
+	.
+map:compounds_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_id;
+	d2rq:propertyDefinitionLabel "compounds id";
+	d2rq:column "compounds.id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_legacy_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_legacy_id;
+	d2rq:propertyDefinitionLabel "compounds legacy_id";
+	d2rq:column "compounds.legacy_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_type;
+	d2rq:propertyDefinitionLabel "compounds type";
+	d2rq:column "compounds.type";
+	.
+map:compounds_public_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_public_id;
+	d2rq:propertyDefinitionLabel "compounds public_id";
+	d2rq:column "compounds.public_id";
+	.
+map:compounds_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_name;
+	d2rq:propertyDefinitionLabel "compounds name";
+	d2rq:column "compounds.name";
+	.
+map:compounds_export a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_export;
+	d2rq:propertyDefinitionLabel "compounds export";
+	d2rq:column "compounds.export";
+	d2rq:valueRegex "^[01]*$";
+	.
+map:compounds_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_state;
+	d2rq:propertyDefinitionLabel "compounds state";
+	d2rq:column "compounds.state";
+	.
+map:compounds_annotation_quality a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_annotation_quality;
+	d2rq:propertyDefinitionLabel "compounds annotation_quality";
+	d2rq:column "compounds.annotation_quality";
+	.
+map:compounds_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_description;
+	d2rq:propertyDefinitionLabel "compounds description";
+	d2rq:column "compounds.description";
+	.
+map:compounds_cas_number a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_cas_number;
+	d2rq:propertyDefinitionLabel "compounds cas_number";
+	d2rq:column "compounds.cas_number";
+	.
+map:compounds_melting_point a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_melting_point;
+	d2rq:propertyDefinitionLabel "compounds melting_point";
+	d2rq:column "compounds.melting_point";
+	.
+map:compounds_protein_formula a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_protein_formula;
+	d2rq:propertyDefinitionLabel "compounds protein_formula";
+	d2rq:column "compounds.protein_formula";
+	.
+map:compounds_protein_weight a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_protein_weight;
+	d2rq:propertyDefinitionLabel "compounds protein_weight";
+	d2rq:column "compounds.protein_weight";
+	.
+map:compounds_experimental_solubility a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_experimental_solubility;
+	d2rq:propertyDefinitionLabel "compounds experimental_solubility";
+	d2rq:column "compounds.experimental_solubility";
+	.
+map:compounds_experimental_logp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_experimental_logp;
+	d2rq:propertyDefinitionLabel "compounds experimental_logp";
+	d2rq:column "compounds.experimental_logp";
+	.
+map:compounds_hydrophobicity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_hydrophobicity;
+	d2rq:propertyDefinitionLabel "compounds hydrophobicity";
+	d2rq:column "compounds.hydrophobicity";
+	.
+map:compounds_isoelectric_point a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_isoelectric_point;
+	d2rq:propertyDefinitionLabel "compounds isoelectric_point";
+	d2rq:column "compounds.isoelectric_point";
+	.
+map:compounds_metabolism a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_metabolism;
+	d2rq:propertyDefinitionLabel "compounds metabolism";
+	d2rq:column "compounds.metabolism";
+	.
+map:compounds_kegg_compound_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_kegg_compound_id;
+	d2rq:propertyDefinitionLabel "compounds kegg_compound_id";
+	d2rq:column "compounds.kegg_compound_id";
+	.
+map:compounds_pubchem_compound_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_pubchem_compound_id;
+	d2rq:propertyDefinitionLabel "compounds pubchem_compound_id";
+	d2rq:column "compounds.pubchem_compound_id";
+	.
+map:compounds_pubchem_substance_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_pubchem_substance_id;
+	d2rq:propertyDefinitionLabel "compounds pubchem_substance_id";
+	d2rq:column "compounds.pubchem_substance_id";
+	.
+map:compounds_chebi_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_chebi_id;
+	d2rq:propertyDefinitionLabel "compounds chebi_id";
+	d2rq:column "compounds.chebi_id";
+	.
+map:compounds_het_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_het_id;
+	d2rq:propertyDefinitionLabel "compounds het_id";
+	d2rq:column "compounds.het_id";
+	.
+map:compounds_uniprot_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_uniprot_id;
+	d2rq:propertyDefinitionLabel "compounds uniprot_id";
+	d2rq:column "compounds.uniprot_id";
+	.
+map:compounds_uniprot_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_uniprot_name;
+	d2rq:propertyDefinitionLabel "compounds uniprot_name";
+	d2rq:column "compounds.uniprot_name";
+	.
+map:compounds_genbank_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_genbank_id;
+	d2rq:propertyDefinitionLabel "compounds genbank_id";
+	d2rq:column "compounds.genbank_id";
+	.
+map:compounds_wikipedia_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_wikipedia_id;
+	d2rq:propertyDefinitionLabel "compounds wikipedia_id";
+	d2rq:column "compounds.wikipedia_id";
+	.
+map:compounds_synthesis_citations a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_synthesis_citations;
+	d2rq:propertyDefinitionLabel "compounds synthesis_citations";
+	d2rq:column "compounds.synthesis_citations";
+	.
+map:compounds_general_citations a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_general_citations;
+	d2rq:propertyDefinitionLabel "compounds general_citations";
+	d2rq:column "compounds.general_citations";
+	.
+map:compounds_comments a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_comments;
+	d2rq:propertyDefinitionLabel "compounds comments";
+	d2rq:column "compounds.comments";
+	.
+map:compounds_protein_structure_file_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_protein_structure_file_name;
+	d2rq:propertyDefinitionLabel "compounds protein_structure_file_name";
+	d2rq:column "compounds.protein_structure_file_name";
+	.
+map:compounds_protein_structure_content_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_protein_structure_content_type;
+	d2rq:propertyDefinitionLabel "compounds protein_structure_content_type";
+	d2rq:column "compounds.protein_structure_content_type";
+	.
+map:compounds_protein_structure_file_size a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_protein_structure_file_size;
+	d2rq:propertyDefinitionLabel "compounds protein_structure_file_size";
+	d2rq:column "compounds.protein_structure_file_size";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_protein_structure_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_protein_structure_updated_at;
+	d2rq:propertyDefinitionLabel "compounds protein_structure_updated_at";
+	d2rq:column "compounds.protein_structure_updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:compounds_msds_file_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_msds_file_name;
+	d2rq:propertyDefinitionLabel "compounds msds_file_name";
+	d2rq:column "compounds.msds_file_name";
+	.
+map:compounds_msds_content_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_msds_content_type;
+	d2rq:propertyDefinitionLabel "compounds msds_content_type";
+	d2rq:column "compounds.msds_content_type";
+	.
+map:compounds_msds_file_size a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_msds_file_size;
+	d2rq:propertyDefinitionLabel "compounds msds_file_size";
+	d2rq:column "compounds.msds_file_size";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_msds_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_msds_updated_at;
+	d2rq:propertyDefinitionLabel "compounds msds_updated_at";
+	d2rq:column "compounds.msds_updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:compounds_creator_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_creator_id;
+	d2rq:propertyDefinitionLabel "compounds creator_id";
+	d2rq:column "compounds.creator_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_updater_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_updater_id;
+	d2rq:propertyDefinitionLabel "compounds updater_id";
+	d2rq:column "compounds.updater_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_created_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_created_at;
+	d2rq:propertyDefinitionLabel "compounds created_at";
+	d2rq:column "compounds.created_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:compounds_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_updated_at;
+	d2rq:propertyDefinitionLabel "compounds updated_at";
+	d2rq:column "compounds.updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:compounds_phenolexplorer_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_phenolexplorer_id;
+	d2rq:propertyDefinitionLabel "compounds phenolexplorer_id";
+	d2rq:column "compounds.phenolexplorer_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_dfc_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_dfc_id;
+	d2rq:propertyDefinitionLabel "compounds dfc_id";
+	d2rq:column "compounds.dfc_id";
+	.
+map:compounds_hmdb_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_hmdb_id;
+	d2rq:propertyDefinitionLabel "compounds hmdb_id";
+	d2rq:column "compounds.hmdb_id";
+	.
+map:compounds_duke_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_duke_id;
+	d2rq:propertyDefinitionLabel "compounds duke_id";
+	d2rq:column "compounds.duke_id";
+	.
+map:compounds_drugbank_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_drugbank_id;
+	d2rq:propertyDefinitionLabel "compounds drugbank_id";
+	d2rq:column "compounds.drugbank_id";
+	.
+map:compounds_bigg_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_bigg_id;
+	d2rq:propertyDefinitionLabel "compounds bigg_id";
+	d2rq:column "compounds.bigg_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_eafus_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_eafus_id;
+	d2rq:propertyDefinitionLabel "compounds eafus_id";
+	d2rq:column "compounds.eafus_id";
+	.
+map:compounds_knapsack_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_knapsack_id;
+	d2rq:propertyDefinitionLabel "compounds knapsack_id";
+	d2rq:column "compounds.knapsack_id";
+	.
+map:compounds_boiling_point a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_boiling_point;
+	d2rq:propertyDefinitionLabel "compounds boiling_point";
+	d2rq:column "compounds.boiling_point";
+	.
+map:compounds_boiling_point_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_boiling_point_reference;
+	d2rq:propertyDefinitionLabel "compounds boiling_point_reference";
+	d2rq:column "compounds.boiling_point_reference";
+	.
+map:compounds_charge a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_charge;
+	d2rq:propertyDefinitionLabel "compounds charge";
+	d2rq:column "compounds.charge";
+	.
+map:compounds_charge_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_charge_reference;
+	d2rq:propertyDefinitionLabel "compounds charge_reference";
+	d2rq:column "compounds.charge_reference";
+	.
+map:compounds_density a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_density;
+	d2rq:propertyDefinitionLabel "compounds density";
+	d2rq:column "compounds.density";
+	.
+map:compounds_density_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_density_reference;
+	d2rq:propertyDefinitionLabel "compounds density_reference";
+	d2rq:column "compounds.density_reference";
+	.
+map:compounds_optical_rotation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_optical_rotation;
+	d2rq:propertyDefinitionLabel "compounds optical_rotation";
+	d2rq:column "compounds.optical_rotation";
+	.
+map:compounds_optical_rotation_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_optical_rotation_reference;
+	d2rq:propertyDefinitionLabel "compounds optical_rotation_reference";
+	d2rq:column "compounds.optical_rotation_reference";
+	.
+map:compounds_percent_composition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_percent_composition;
+	d2rq:propertyDefinitionLabel "compounds percent_composition";
+	d2rq:column "compounds.percent_composition";
+	.
+map:compounds_percent_composition_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_percent_composition_reference;
+	d2rq:propertyDefinitionLabel "compounds percent_composition_reference";
+	d2rq:column "compounds.percent_composition_reference";
+	.
+map:compounds_physical_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_physical_description;
+	d2rq:propertyDefinitionLabel "compounds physical_description";
+	d2rq:column "compounds.physical_description";
+	.
+map:compounds_physical_description_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_physical_description_reference;
+	d2rq:propertyDefinitionLabel "compounds physical_description_reference";
+	d2rq:column "compounds.physical_description_reference";
+	.
+map:compounds_refractive_index a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_refractive_index;
+	d2rq:propertyDefinitionLabel "compounds refractive_index";
+	d2rq:column "compounds.refractive_index";
+	.
+map:compounds_refractive_index_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_refractive_index_reference;
+	d2rq:propertyDefinitionLabel "compounds refractive_index_reference";
+	d2rq:column "compounds.refractive_index_reference";
+	.
+map:compounds_uv_index a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_uv_index;
+	d2rq:propertyDefinitionLabel "compounds uv_index";
+	d2rq:column "compounds.uv_index";
+	.
+map:compounds_uv_index_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_uv_index_reference;
+	d2rq:propertyDefinitionLabel "compounds uv_index_reference";
+	d2rq:column "compounds.uv_index_reference";
+	.
+map:compounds_experimental_pka a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_experimental_pka;
+	d2rq:propertyDefinitionLabel "compounds experimental_pka";
+	d2rq:column "compounds.experimental_pka";
+	.
+map:compounds_experimental_pka_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_experimental_pka_reference;
+	d2rq:propertyDefinitionLabel "compounds experimental_pka_reference";
+	d2rq:column "compounds.experimental_pka_reference";
+	.
+map:compounds_experimental_solubility_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_experimental_solubility_reference;
+	d2rq:propertyDefinitionLabel "compounds experimental_solubility_reference";
+	d2rq:column "compounds.experimental_solubility_reference";
+	.
+map:compounds_experimental_logp_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_experimental_logp_reference;
+	d2rq:propertyDefinitionLabel "compounds experimental_logp_reference";
+	d2rq:column "compounds.experimental_logp_reference";
+	.
+map:compounds_hydrophobicity_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_hydrophobicity_reference;
+	d2rq:propertyDefinitionLabel "compounds hydrophobicity_reference";
+	d2rq:column "compounds.hydrophobicity_reference";
+	.
+map:compounds_isoelectric_point_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_isoelectric_point_reference;
+	d2rq:propertyDefinitionLabel "compounds isoelectric_point_reference";
+	d2rq:column "compounds.isoelectric_point_reference";
+	.
+map:compounds_melting_point_reference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_melting_point_reference;
+	d2rq:propertyDefinitionLabel "compounds melting_point_reference";
+	d2rq:column "compounds.melting_point_reference";
+	.
+map:compounds_moldb_alogps_logp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_alogps_logp;
+	d2rq:propertyDefinitionLabel "compounds moldb_alogps_logp";
+	d2rq:column "compounds.moldb_alogps_logp";
+	.
+map:compounds_moldb_logp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_logp;
+	d2rq:propertyDefinitionLabel "compounds moldb_logp";
+	d2rq:column "compounds.moldb_logp";
+	.
+map:compounds_moldb_alogps_logs a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_alogps_logs;
+	d2rq:propertyDefinitionLabel "compounds moldb_alogps_logs";
+	d2rq:column "compounds.moldb_alogps_logs";
+	.
+map:compounds_moldb_smiles a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_smiles;
+	d2rq:propertyDefinitionLabel "compounds moldb_smiles";
+	d2rq:column "compounds.moldb_smiles";
+	.
+map:compounds_moldb_pka a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_pka;
+	d2rq:propertyDefinitionLabel "compounds moldb_pka";
+	d2rq:column "compounds.moldb_pka";
+	.
+map:compounds_moldb_formula a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_formula;
+	d2rq:propertyDefinitionLabel "compounds moldb_formula";
+	d2rq:column "compounds.moldb_formula";
+	.
+map:compounds_moldb_average_mass a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_average_mass;
+	d2rq:propertyDefinitionLabel "compounds moldb_average_mass";
+	d2rq:column "compounds.moldb_average_mass";
+	.
+map:compounds_moldb_inchi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_inchi;
+	d2rq:propertyDefinitionLabel "compounds moldb_inchi";
+	d2rq:column "compounds.moldb_inchi";
+	.
+map:compounds_moldb_mono_mass a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_mono_mass;
+	d2rq:propertyDefinitionLabel "compounds moldb_mono_mass";
+	d2rq:column "compounds.moldb_mono_mass";
+	.
+map:compounds_moldb_inchikey a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_inchikey;
+	d2rq:propertyDefinitionLabel "compounds moldb_inchikey";
+	d2rq:column "compounds.moldb_inchikey";
+	.
+map:compounds_moldb_alogps_solubility a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_alogps_solubility;
+	d2rq:propertyDefinitionLabel "compounds moldb_alogps_solubility";
+	d2rq:column "compounds.moldb_alogps_solubility";
+	.
+map:compounds_moldb_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_id;
+	d2rq:propertyDefinitionLabel "compounds moldb_id";
+	d2rq:column "compounds.moldb_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_moldb_iupac a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_moldb_iupac;
+	d2rq:propertyDefinitionLabel "compounds moldb_iupac";
+	d2rq:column "compounds.moldb_iupac";
+	.
+map:compounds_structure_source a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_structure_source;
+	d2rq:propertyDefinitionLabel "compounds structure_source";
+	d2rq:column "compounds.structure_source";
+	.
+map:compounds_duplicate_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_duplicate_id;
+	d2rq:propertyDefinitionLabel "compounds duplicate_id";
+	d2rq:column "compounds.duplicate_id";
+	.
+map:compounds_old_dfc_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_old_dfc_id;
+	d2rq:propertyDefinitionLabel "compounds old_dfc_id";
+	d2rq:column "compounds.old_dfc_id";
+	.
+map:compounds_dfc_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_dfc_name;
+	d2rq:propertyDefinitionLabel "compounds dfc_name";
+	d2rq:column "compounds.dfc_name";
+	.
+map:compounds_compound_source a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_compound_source;
+	d2rq:propertyDefinitionLabel "compounds compound_source";
+	d2rq:column "compounds.compound_source";
+	.
+map:compounds_flavornet_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_flavornet_id;
+	d2rq:propertyDefinitionLabel "compounds flavornet_id";
+	d2rq:column "compounds.flavornet_id";
+	.
+map:compounds_goodscent_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_goodscent_id;
+	d2rq:propertyDefinitionLabel "compounds goodscent_id";
+	d2rq:column "compounds.goodscent_id";
+	.
+map:compounds_superscent_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_superscent_id;
+	d2rq:propertyDefinitionLabel "compounds superscent_id";
+	d2rq:column "compounds.superscent_id";
+	.
+map:compounds_phenolexplorer_metabolite_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_phenolexplorer_metabolite_id;
+	d2rq:propertyDefinitionLabel "compounds phenolexplorer_metabolite_id";
+	d2rq:column "compounds.phenolexplorer_metabolite_id";
+	d2rq:datatype xsd:integer;
+	.
+map:compounds_kingdom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_kingdom;
+	d2rq:propertyDefinitionLabel "compounds kingdom";
+	d2rq:column "compounds.kingdom";
+	.
+map:compounds_superklass a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_superklass;
+	d2rq:propertyDefinitionLabel "compounds superklass";
+	d2rq:column "compounds.superklass";
+	.
+map:compounds_klass a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_klass;
+	d2rq:propertyDefinitionLabel "compounds klass";
+	d2rq:column "compounds.klass";
+	.
+map:compounds_subklass a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_subklass;
+	d2rq:propertyDefinitionLabel "compounds subklass";
+	d2rq:column "compounds.subklass";
+	.
+map:compounds_direct_parent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_direct_parent;
+	d2rq:propertyDefinitionLabel "compounds direct_parent";
+	d2rq:column "compounds.direct_parent";
+	.
+map:compounds_molecular_framework a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_molecular_framework;
+	d2rq:propertyDefinitionLabel "compounds molecular_framework";
+	d2rq:column "compounds.molecular_framework";
+	.
+map:compounds_chembl_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_chembl_id;
+	d2rq:propertyDefinitionLabel "compounds chembl_id";
+	d2rq:column "compounds.chembl_id";
+	.
+map:compounds_chemspider_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_chemspider_id;
+	d2rq:propertyDefinitionLabel "compounds chemspider_id";
+	d2rq:column "compounds.chemspider_id";
+	.
+map:compounds_meta_cyc_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_meta_cyc_id;
+	d2rq:propertyDefinitionLabel "compounds meta_cyc_id";
+	d2rq:column "compounds.meta_cyc_id";
+	.
+map:compounds_foodcomex a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_foodcomex;
+	d2rq:propertyDefinitionLabel "compounds foodcomex";
+	d2rq:column "compounds.foodcomex";
+	d2rq:valueRegex "^[01]*$";
+	.
+map:compounds_phytohub_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:compounds;
+	d2rq:property vocab:compounds_phytohub_id;
+	d2rq:propertyDefinitionLabel "compounds phytohub_id";
+	d2rq:column "compounds.phytohub_id";
+	.
+
+# Table contents
+map:contents a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "contents/@@contents.id@@";
+	d2rq:class vocab:contents;
+	d2rq:classDefinitionLabel "contents";
+	.
+map:contents__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property rdfs:label;
+	d2rq:pattern "contents #@@contents.id@@";
+	.
+map:contents_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_id;
+	d2rq:propertyDefinitionLabel "contents id";
+	d2rq:column "contents.id";
+	d2rq:datatype xsd:integer;
+	.
+map:contents_source_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_source_id;
+	d2rq:propertyDefinitionLabel "contents source_id";
+	d2rq:column "contents.source_id";
+	d2rq:datatype xsd:integer;
+	.
+map:contents_source_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_source_type;
+	d2rq:propertyDefinitionLabel "contents source_type";
+	d2rq:column "contents.source_type";
+	.
+map:contents_food_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_food_id;
+	d2rq:propertyDefinitionLabel "contents food_id";
+	d2rq:column "contents.food_id";
+	d2rq:datatype xsd:integer;
+	.
+map:contents_orig_food_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_food_id;
+	d2rq:propertyDefinitionLabel "contents orig_food_id";
+	d2rq:column "contents.orig_food_id";
+	.
+map:contents_orig_food_common_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_food_common_name;
+	d2rq:propertyDefinitionLabel "contents orig_food_common_name";
+	d2rq:column "contents.orig_food_common_name";
+	.
+map:contents_orig_food_scientific_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_food_scientific_name;
+	d2rq:propertyDefinitionLabel "contents orig_food_scientific_name";
+	d2rq:column "contents.orig_food_scientific_name";
+	.
+map:contents_orig_food_part a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_food_part;
+	d2rq:propertyDefinitionLabel "contents orig_food_part";
+	d2rq:column "contents.orig_food_part";
+	.
+map:contents_orig_source_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_source_id;
+	d2rq:propertyDefinitionLabel "contents orig_source_id";
+	d2rq:column "contents.orig_source_id";
+	.
+map:contents_orig_source_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_source_name;
+	d2rq:propertyDefinitionLabel "contents orig_source_name";
+	d2rq:column "contents.orig_source_name";
+	.
+map:contents_orig_content a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_content;
+	d2rq:propertyDefinitionLabel "contents orig_content";
+	d2rq:column "contents.orig_content";
+	d2rq:datatype xsd:decimal;
+	.
+map:contents_orig_min a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_min;
+	d2rq:propertyDefinitionLabel "contents orig_min";
+	d2rq:column "contents.orig_min";
+	d2rq:datatype xsd:decimal;
+	.
+map:contents_orig_max a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_max;
+	d2rq:propertyDefinitionLabel "contents orig_max";
+	d2rq:column "contents.orig_max";
+	d2rq:datatype xsd:decimal;
+	.
+map:contents_orig_unit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_unit;
+	d2rq:propertyDefinitionLabel "contents orig_unit";
+	d2rq:column "contents.orig_unit";
+	.
+map:contents_orig_citation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_citation;
+	d2rq:propertyDefinitionLabel "contents orig_citation";
+	d2rq:column "contents.orig_citation";
+	.
+map:contents_citation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_citation;
+	d2rq:propertyDefinitionLabel "contents citation";
+	d2rq:column "contents.citation";
+	.
+map:contents_citation_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_citation_type;
+	d2rq:propertyDefinitionLabel "contents citation_type";
+	d2rq:column "contents.citation_type";
+	.
+map:contents_creator_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_creator_id;
+	d2rq:propertyDefinitionLabel "contents creator_id";
+	d2rq:column "contents.creator_id";
+	d2rq:datatype xsd:integer;
+	.
+map:contents_updater_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_updater_id;
+	d2rq:propertyDefinitionLabel "contents updater_id";
+	d2rq:column "contents.updater_id";
+	d2rq:datatype xsd:integer;
+	.
+map:contents_created_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_created_at;
+	d2rq:propertyDefinitionLabel "contents created_at";
+	d2rq:column "contents.created_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:contents_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_updated_at;
+	d2rq:propertyDefinitionLabel "contents updated_at";
+	d2rq:column "contents.updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:contents_orig_method a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_method;
+	d2rq:propertyDefinitionLabel "contents orig_method";
+	d2rq:column "contents.orig_method";
+	.
+map:contents_orig_unit_expression a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_orig_unit_expression;
+	d2rq:propertyDefinitionLabel "contents orig_unit_expression";
+	d2rq:column "contents.orig_unit_expression";
+	.
+map:contents_standard_content a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:contents;
+	d2rq:property vocab:contents_standard_content;
+	d2rq:propertyDefinitionLabel "contents standard_content";
+	d2rq:column "contents.standard_content";
+	d2rq:datatype xsd:decimal;
+	.
+
+# Table food
+map:food a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "food/@@food.id@@";
+	d2rq:class vocab:food;
+	d2rq:classDefinitionLabel "food";
+	.
+map:food__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property rdfs:label;
+	d2rq:pattern "food #@@food.id@@";
+	.
+map:food_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property vocab:food_id;
+	d2rq:propertyDefinitionLabel "food id";
+	d2rq:column "food.id";
+	d2rq:datatype xsd:integer;
+	.
+map:food_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property vocab:food_name;
+	d2rq:propertyDefinitionLabel "food name";
+	d2rq:column "food.name";
+	.
+map:food_sameas a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property vocab:food_sameas;
+	d2rq:propertyDefinitionLabel "food sameas";
+	d2rq:column "food.sameas";
+	.
+map:food_policy a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property vocab:food_policy;
+	d2rq:propertyDefinitionLabel "food policy";
+	d2rq:column "food.policy";
+	.
+map:food_category a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property vocab:food_category;
+	d2rq:propertyDefinitionLabel "food category";
+	d2rq:column "food.category";
+	.
+map:food_foodb_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food;
+	d2rq:property vocab:food_foodb_id;
+	d2rq:refersToClassMap map:foods;
+	d2rq:join "food.foodb_id => foods.id";
+	.
+
+# Table food_component
+map:food_component a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "food_component" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "food_component";
+	d2rq:class vocab:food_component;
+	d2rq:classDefinitionLabel "food_component";
+	.
+map:food_component_food_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food_component;
+	d2rq:property vocab:food_component_food_name;
+	d2rq:propertyDefinitionLabel "food_component food_name";
+	d2rq:column "food_component.food_name";
+	.
+map:food_component_wastestream_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food_component;
+	d2rq:property vocab:food_component_wastestream_name;
+	d2rq:propertyDefinitionLabel "food_component wastestream_name";
+	d2rq:column "food_component.wastestream_name";
+	.
+map:food_component_component_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food_component;
+	d2rq:property vocab:food_component_component_name;
+	d2rq:propertyDefinitionLabel "food_component component_name";
+	d2rq:column "food_component.component_name";
+	.
+map:food_component_component_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food_component;
+	d2rq:property vocab:food_component_component_id;
+	d2rq:refersToClassMap map:component;
+	d2rq:join "food_component.component_id => component.id";
+	.
+map:food_component_food_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:food_component;
+	d2rq:property vocab:food_component_food_id;
+	d2rq:refersToClassMap map:food;
+	d2rq:join "food_component.food_id => food.id";
+	.
+
+# Table foods
+map:foods a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "foods/@@foods.id@@";
+	d2rq:class vocab:foods;
+	d2rq:classDefinitionLabel "foods";
+	.
+map:foods__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property rdfs:label;
+	d2rq:pattern "foods #@@foods.id@@";
+	.
+map:foods_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_id;
+	d2rq:propertyDefinitionLabel "foods id";
+	d2rq:column "foods.id";
+	d2rq:datatype xsd:integer;
+	.
+map:foods_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_name;
+	d2rq:propertyDefinitionLabel "foods name";
+	d2rq:column "foods.name";
+	.
+map:foods_name_scientific a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_name_scientific;
+	d2rq:propertyDefinitionLabel "foods name_scientific";
+	d2rq:column "foods.name_scientific";
+	.
+map:foods_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_description;
+	d2rq:propertyDefinitionLabel "foods description";
+	d2rq:column "foods.description";
+	.
+map:foods_itis_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_itis_id;
+	d2rq:propertyDefinitionLabel "foods itis_id";
+	d2rq:column "foods.itis_id";
+	.
+map:foods_wikipedia_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_wikipedia_id;
+	d2rq:propertyDefinitionLabel "foods wikipedia_id";
+	d2rq:column "foods.wikipedia_id";
+	.
+map:foods_picture_file_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_picture_file_name;
+	d2rq:propertyDefinitionLabel "foods picture_file_name";
+	d2rq:column "foods.picture_file_name";
+	.
+map:foods_picture_content_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_picture_content_type;
+	d2rq:propertyDefinitionLabel "foods picture_content_type";
+	d2rq:column "foods.picture_content_type";
+	.
+map:foods_picture_file_size a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_picture_file_size;
+	d2rq:propertyDefinitionLabel "foods picture_file_size";
+	d2rq:column "foods.picture_file_size";
+	d2rq:datatype xsd:integer;
+	.
+map:foods_picture_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_picture_updated_at;
+	d2rq:propertyDefinitionLabel "foods picture_updated_at";
+	d2rq:column "foods.picture_updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foods_legacy_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_legacy_id;
+	d2rq:propertyDefinitionLabel "foods legacy_id";
+	d2rq:column "foods.legacy_id";
+	d2rq:datatype xsd:integer;
+	.
+map:foods_food_group a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_food_group;
+	d2rq:propertyDefinitionLabel "foods food_group";
+	d2rq:column "foods.food_group";
+	.
+map:foods_food_subgroup a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_food_subgroup;
+	d2rq:propertyDefinitionLabel "foods food_subgroup";
+	d2rq:column "foods.food_subgroup";
+	.
+map:foods_food_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_food_type;
+	d2rq:propertyDefinitionLabel "foods food_type";
+	d2rq:column "foods.food_type";
+	.
+map:foods_created_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_created_at;
+	d2rq:propertyDefinitionLabel "foods created_at";
+	d2rq:column "foods.created_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foods_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_updated_at;
+	d2rq:propertyDefinitionLabel "foods updated_at";
+	d2rq:column "foods.updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foods_creator_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_creator_id;
+	d2rq:propertyDefinitionLabel "foods creator_id";
+	d2rq:column "foods.creator_id";
+	d2rq:datatype xsd:integer;
+	.
+map:foods_updater_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_updater_id;
+	d2rq:propertyDefinitionLabel "foods updater_id";
+	d2rq:column "foods.updater_id";
+	d2rq:datatype xsd:integer;
+	.
+map:foods_export_to_afcdb a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_export_to_afcdb;
+	d2rq:propertyDefinitionLabel "foods export_to_afcdb";
+	d2rq:column "foods.export_to_afcdb";
+	d2rq:valueRegex "^[01]*$";
+	.
+map:foods_category a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_category;
+	d2rq:propertyDefinitionLabel "foods category";
+	d2rq:column "foods.category";
+	.
+map:foods_ncbi_taxonomy_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_ncbi_taxonomy_id;
+	d2rq:propertyDefinitionLabel "foods ncbi_taxonomy_id";
+	d2rq:column "foods.ncbi_taxonomy_id";
+	d2rq:datatype xsd:integer;
+	.
+map:foods_export_to_foodb a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_export_to_foodb;
+	d2rq:propertyDefinitionLabel "foods export_to_foodb";
+	d2rq:column "foods.export_to_foodb";
+	d2rq:valueRegex "^[01]*$";
+	.
+map:foods_sameas a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foods;
+	d2rq:property vocab:foods_sameas;
+	d2rq:propertyDefinitionLabel "foods sameas";
+	d2rq:column "foods.sameas";
+	.
+
+# Table nutrients
+map:nutrients a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "nutrients/@@nutrients.id@@";
+	d2rq:class vocab:nutrients;
+	d2rq:classDefinitionLabel "nutrients";
+	.
+map:nutrients__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property rdfs:label;
+	d2rq:pattern "nutrients #@@nutrients.id@@";
+	.
+map:nutrients_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_id;
+	d2rq:propertyDefinitionLabel "nutrients id";
+	d2rq:column "nutrients.id";
+	d2rq:datatype xsd:integer;
+	.
+map:nutrients_legacy_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_legacy_id;
+	d2rq:propertyDefinitionLabel "nutrients legacy_id";
+	d2rq:column "nutrients.legacy_id";
+	d2rq:datatype xsd:integer;
+	.
+map:nutrients_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_type;
+	d2rq:propertyDefinitionLabel "nutrients type";
+	d2rq:column "nutrients.type";
+	.
+map:nutrients_public_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_public_id;
+	d2rq:propertyDefinitionLabel "nutrients public_id";
+	d2rq:column "nutrients.public_id";
+	.
+map:nutrients_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_name;
+	d2rq:propertyDefinitionLabel "nutrients name";
+	d2rq:column "nutrients.name";
+	.
+map:nutrients_export a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_export;
+	d2rq:propertyDefinitionLabel "nutrients export";
+	d2rq:column "nutrients.export";
+	d2rq:datatype xsd:integer;
+	.
+map:nutrients_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_state;
+	d2rq:propertyDefinitionLabel "nutrients state";
+	d2rq:column "nutrients.state";
+	.
+map:nutrients_annotation_quality a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_annotation_quality;
+	d2rq:propertyDefinitionLabel "nutrients annotation_quality";
+	d2rq:column "nutrients.annotation_quality";
+	.
+map:nutrients_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_description;
+	d2rq:propertyDefinitionLabel "nutrients description";
+	d2rq:column "nutrients.description";
+	.
+map:nutrients_wikipedia_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_wikipedia_id;
+	d2rq:propertyDefinitionLabel "nutrients wikipedia_id";
+	d2rq:column "nutrients.wikipedia_id";
+	.
+map:nutrients_comments a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_comments;
+	d2rq:propertyDefinitionLabel "nutrients comments";
+	d2rq:column "nutrients.comments";
+	.
+map:nutrients_dfc_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_dfc_id;
+	d2rq:propertyDefinitionLabel "nutrients dfc_id";
+	d2rq:column "nutrients.dfc_id";
+	.
+map:nutrients_duke_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_duke_id;
+	d2rq:propertyDefinitionLabel "nutrients duke_id";
+	d2rq:column "nutrients.duke_id";
+	.
+map:nutrients_eafus_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_eafus_id;
+	d2rq:propertyDefinitionLabel "nutrients eafus_id";
+	d2rq:column "nutrients.eafus_id";
+	.
+map:nutrients_dfc_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_dfc_name;
+	d2rq:propertyDefinitionLabel "nutrients dfc_name";
+	d2rq:column "nutrients.dfc_name";
+	.
+map:nutrients_compound_source a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_compound_source;
+	d2rq:propertyDefinitionLabel "nutrients compound_source";
+	d2rq:column "nutrients.compound_source";
+	.
+map:nutrients_metabolism a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_metabolism;
+	d2rq:propertyDefinitionLabel "nutrients metabolism";
+	d2rq:column "nutrients.metabolism";
+	.
+map:nutrients_synthesis_citations a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_synthesis_citations;
+	d2rq:propertyDefinitionLabel "nutrients synthesis_citations";
+	d2rq:column "nutrients.synthesis_citations";
+	.
+map:nutrients_general_citations a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_general_citations;
+	d2rq:propertyDefinitionLabel "nutrients general_citations";
+	d2rq:column "nutrients.general_citations";
+	.
+map:nutrients_creator_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_creator_id;
+	d2rq:propertyDefinitionLabel "nutrients creator_id";
+	d2rq:column "nutrients.creator_id";
+	d2rq:datatype xsd:integer;
+	.
+map:nutrients_updater_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_updater_id;
+	d2rq:propertyDefinitionLabel "nutrients updater_id";
+	d2rq:column "nutrients.updater_id";
+	d2rq:datatype xsd:integer;
+	.
+map:nutrients_created_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_created_at;
+	d2rq:propertyDefinitionLabel "nutrients created_at";
+	d2rq:column "nutrients.created_at";
+	d2rq:datatype xsd:dateTime;
+	.
+map:nutrients_updated_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:nutrients;
+	d2rq:property vocab:nutrients_updated_at;
+	d2rq:propertyDefinitionLabel "nutrients updated_at";
+	d2rq:column "nutrients.updated_at";
+	d2rq:datatype xsd:dateTime;
+	.
+
