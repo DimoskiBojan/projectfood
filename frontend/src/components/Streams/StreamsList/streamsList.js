@@ -16,7 +16,7 @@ const StreamsList = (props) => {
             // DataTable
             let table = $('#streamsTable').DataTable();
             let term = query.get("term");
-            if(term != null || term !== "") {
+            if(term != null && term !== "") {
                 table.search(term).draw();
             }
             console.log(query.get("term"));
@@ -33,7 +33,7 @@ const StreamsList = (props) => {
     return (
         <div className="row">
             <h4 className="text-upper text-left mb-4">Showing Waste Streams</h4>
-            <div className="table-responsive">
+            <div className="table-responsive mb-3">
                 <table className="table tr-history table-striped small" id="streamsTable">
                     <thead className="h6">
                     <tr>

@@ -32,7 +32,7 @@ public class ComponentApi {
     }
 
     @GetMapping(path = "/lookup/compounds", params = "name")
-    public List<Compounds> getComponent(String name) {
+    public List<Compounds> lookupCompounds(String name) {
         return compoundsService.lookupCompoundsByName(name);
     }
 
