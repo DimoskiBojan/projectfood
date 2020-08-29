@@ -17,14 +17,10 @@
 
 ### База на податоци (jdbc:postgresql://localhost:54320/pfood)
 
-За подигање на базата на податоци потребно е да имате Docker. PostgreSQL container-от го стартуваме користејќи ги 
+За подигање на базата на податоци потребно е да имате Docker. PostgreSQL container-от, пополнет со потребните податоци, го стартуваме користејќи ги 
 конфигурациите од docker-compose.yml со командата: 
 ```bash
 docker-compose up -d
-```
-Потоа ја пополнуваме базата со потребните податоци, користејќи ја скриптата restore.sh:
-```bash
-./restore.sh
 ```
 
 ### Back-end (http://localhost:8080/)

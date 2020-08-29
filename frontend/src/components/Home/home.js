@@ -9,6 +9,13 @@ const Home = (props) => {
     const [foods, setFoods] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     let history = useHistory();
+    let user = null;
+    if(localStorage.getItem("x-access-token") != null){
+        let jwt = require("jsonwebtoken");
+        let token = localStorage.getItem("x-access-token").replace('Bearer ','');
+        let decodedToken = jwt.decode(token);
+        user = decodedToken.sub;
+    }
 
     useEffect(() => {
         $(document).ready( function () {

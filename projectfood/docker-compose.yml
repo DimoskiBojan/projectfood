@@ -2,8 +2,8 @@ version: "3"
 services:
   #  Create a service named pg-db.
   pg-db:
-    #   Use the Docker Image postgres. This will pull the newest release.
-    image: "postgres"
+    #   Use custom bootstraped postgres.
+    build: .
     #   Give the container the name pfood_postgres. 
     container_name: "pfood_postgres"
     #   Setup the username, password, and database name. 

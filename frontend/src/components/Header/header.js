@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import {isAuthenticated, logOut} from "../../repository/userRepository";
 
 const header = (props) => {
     return (
@@ -30,8 +31,18 @@ const header = (props) => {
                         </li>
                     </ul>
                     <form className="form-inline mt-2 mt-md-0 ml-3">
-                        <Link className={"btn btn-outline-light my-2 my-sm-0"} to={"/login"}>Login</Link>
+                        {
+                            (isAuthenticated()) ?
+                                (<ul className="nav navbar-nav navbar-right">
+                                    <li onClick={logOut}><a className={"text-white"} href="/">Log out</a></li>
+                                </ul>) :
+                                (<div>
+                                    <Link className={"btn btn-outline-light my-2 my-sm-0"} to={"/login"}>Login</Link>
+                                    <Link className={"text-white ml-2"} to={"/register"}>Register</Link>
+                                </div>)
+                        }
                     </form>
+
                 </div>
                 </div>
             </nav>

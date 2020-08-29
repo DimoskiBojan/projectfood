@@ -16,6 +16,7 @@ import LoadingIndicator from "../LoadingIndicator/loadingIndicator";
 import { trackPromise } from 'react-promise-tracker';
 import Home from "../Home/home";
 import AdminLogin from "../Login/adminLogin";
+import Register from "../Register/register";
 import StreamsList from "../Streams/StreamsList/streamsList";
 import ComponentCompoundsMap from "../Component/ComponentCompoundsMap/componentCompoundsMap";
 
@@ -133,6 +134,9 @@ class App extends Component {
                    <AutoMap/>
                    <LoadingIndicator area={"automap-area"}/>
                  </Route>
+                 <Route path={"/register"}>
+                  <Register/>
+                </Route>
                  <Route path={"/login"}>
                    <AdminLogin/>
                  </Route>
