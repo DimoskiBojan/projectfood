@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
+import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 import foodService from "../../repository/foodRepository";
 import componentService from "../../repository/componentRepository"
 import nutrientsService from "../../repository/nutrientsRepository"
