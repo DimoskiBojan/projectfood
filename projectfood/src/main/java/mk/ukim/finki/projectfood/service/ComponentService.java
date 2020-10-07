@@ -4,6 +4,7 @@ import mk.ukim.finki.projectfood.model.Component;
 import mk.ukim.finki.projectfood.model.views.ComponentsShowView;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ComponentService {
 
@@ -21,7 +22,13 @@ public interface ComponentService {
 
     void mapComponentToCompounds();
 
-    public void populateSameAs();
+    Map<Integer, Integer> countPossibleMappingsCompounds();
+
+    void populateSameAs();
+
+    String lookupExternal(String term);
+
+    Map<Integer, Integer> countPossibleMappingsExternal();
 
     void refreshMV();
 

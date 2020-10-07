@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 const FoodListItem = (props) => {
     return (
         <tr>
-            <td><a href={"/food/" + props.food.id + "/details"}>{props.food.name}</a></td>
+            <td><Link to={"/food/" + props.food.id + "/details"}>{props.food.name}</Link></td>
             <td>{props.food.category}</td>
             <td>
                 <Link to={"/food/" + props.food.id + "/map"}>

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 const NutrientListItem = (props) => {
     return (
         <tr>
-            <td><a href={"/nutrients/" + props.nutrient.id + "/details"}>{props.nutrient.name}</a></td>
+            <td><Link to={"/nutrients/" + props.nutrient.id + "/details"}>{props.nutrient.name}</Link></td>
         </tr>
     )
 };

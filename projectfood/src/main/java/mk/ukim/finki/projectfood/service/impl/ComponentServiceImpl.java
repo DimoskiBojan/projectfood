@@ -13,11 +13,16 @@ import mk.ukim.finki.projectfood.repository.views.ComponentsShowViewRepository;
 import mk.ukim.finki.projectfood.service.ComponentService;
 import mk.ukim.finki.projectfood.service.CompoundsService;
 import mk.ukim.finki.projectfood.util.HttpUtils;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class ComponentServiceImpl implements ComponentService {
@@ -83,6 +88,20 @@ public class ComponentServiceImpl implements ComponentService {
             }
         });
         componentRepository.saveAll(components);
+    }
+
+    @Override
+    public Map<Integer, Integer> countPossibleMappingsCompounds() {
+        Map<Integer, Integer> possibleMappingNumber = new HashMap<>();
+        List<Component> componentList = componentRepository.findAll();
+        componentList.forEach(component -> {
+            String term = component.getName();
+            Integer possibleMappings = compoundsService.lookupCompoundsByName(term).size();
+            if(possibleMappings > 30) possibleMappings = 30;
+            possibleMappingNumber.computeIfAbsent(possibleMappings, k -> 0);
+            possibleMappingNumber.computeIfPresent(possibleMappings, (key, val) -> val + 1);
+        });
+        return possibleMappingNumber;
     }
 
     @Override
@@ -219,6 +238,58 @@ public class ComponentServiceImpl implements ComponentService {
         });
 
         componentRepository.saveAll(components);
+    }
+
+    @Override
+    public String lookupExternal(String term) {
+        return null;
+    }
+
+    @Override
+    public Map<Integer, Integer> countPossibleMappingsExternal() {
+        Map<Integer, Integer> possibleMappingNumber = new HashMap<>();
+        List<Component> componentList = componentRepository.findAll();
+        componentList.forEach(component -> {
+            String term = component.getName();
+            Integer possibleMappings = possibleMappings(term);
+            if(possibleMappings > 30) possibleMappings = 30;
+            possibleMappingNumber.computeIfAbsent(possibleMappings, k -> 0);
+            possibleMappingNumber.computeIfPresent(possibleMappings, (key, val) -> val + 1);
+        });
+        return possibleMappingNumber;
+    }
+
+    public Integer possibleMappings(String term) {
+        String foodON = "http://www.ontobee.org/api/search?ontology=FOODON&term=";
+        String SNOMEDCT = "http://data.bioontology.org/search?ontologies=SNOMEDCT&pagesize=10&apikey=d01734b9-8dc5-414c-bef1-d7cd327ccc99&q=";
+        String dbPedia = "https://lookup.dbpedia.org/api/search?format=JSON&query=";
+
+        JSONArray json;
+        Integer result = 0;
+        try {
+            //SNOMEDCT
+            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(SNOMEDCT.concat(term))).getJSONArray("collection");
+            if(json != null) {
+                result += json.length();
+            }
+
+            //FOODON
+            json = HttpUtils.getJSONArrayFromUrl(foodON.concat(term));
+            if(json != null) {
+                result += json.length();
+            }
+
+            //DBPedia
+            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
+            if(json != null) {
+                result += json.length();
+            }
+
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

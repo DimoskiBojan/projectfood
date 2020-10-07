@@ -10,6 +10,7 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -35,6 +36,21 @@ public class ComponentApi {
     public List<Compounds> lookupCompounds(String name) {
         return compoundsService.lookupCompoundsByName(name);
     }
+
+//    @GetMapping("/lookup/compounds/count-possible-mappings")
+//    public Map<Integer, Integer> countPossibleMappingsCompounds() {
+//        return componentService.countPossibleMappingsCompounds();
+//    }
+
+    @GetMapping("/lookup/external")
+    public String lookupExternal(String term) {
+        return componentService.lookupExternal(term);
+    }
+
+//    @GetMapping("/lookup/external/count-possible-mappings")
+//    public Map<Integer, Integer> countPossibleMappingsExternal() {
+//        return componentService.countPossibleMappingsExternal();
+//    }
 
     @PatchMapping("/{id}")
     public Component updateCompoundId(@PathVariable("id") Integer id,

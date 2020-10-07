@@ -19,7 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -192,6 +194,126 @@ public class FoodServiceImpl implements FoodService {
         });
     }
 
+    @Override
+    public String lookupExternal(String term) {
+        String foodON = "http://www.ontobee.org/api/search?ontology=FOODON&term=";
+        String SNOMEDCT = "http://data.bioontology.org/search?ontologies=SNOMEDCT&pagesize=10&apikey=d01734b9-8dc5-414c-bef1-d7cd327ccc99&q=";
+        String dbPedia = "https://lookup.dbpedia.org/api/search?format=JSON&query=";
+
+        JSONArray json;
+        JSONArray snomedArray = new JSONArray();
+        JSONArray foodOnArray = new JSONArray();
+        JSONArray dbpediaArray = new JSONArray();
+        JSONObject result = new JSONObject();
+        try {
+            //SNOMEDCT
+            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(SNOMEDCT.concat(term))).getJSONArray("collection");
+            if(json != null && json.length() != 0) {
+                int i;
+                for (i = 0; i < json.length(); ++i) {
+                    JSONObject entry;
+                    entry = json.getJSONObject(i);
+                    JSONObject obj = new JSONObject();
+                    obj.put("label", entry.getString("prefLabel"));
+                    obj.put("uri", entry.getJSONObject("links").getString("self"));
+
+                    snomedArray.put(obj);
+                }
+            }
+
+            //FOODON
+            json = HttpUtils.getJSONArrayFromUrl(foodON.concat(term));
+            if(json != null && json.length() != 0) {
+                int i;
+                for (i = 0; i < json.length(); ++i) {
+                    JSONObject entry;
+                    entry = json.getJSONObject(i);
+                    String label = entry.getString("value");
+                    String uri = (String) entry.get("iri");
+                    JSONObject obj = new JSONObject();
+                    obj.put("label", entry.getString("value"));
+                    obj.put("uri", (String) entry.get("iri"));
+
+                    foodOnArray.put(obj);
+                }
+
+            }
+
+            //DBPedia
+            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
+            if(json != null && json.length() != 0) {
+                int i;
+                for (i = 0; i < json.length(); ++i) {
+                    JSONObject entry;
+                    entry = json.getJSONObject(i);
+                    String label = entry.getJSONArray("label").getString(0);
+                    label = label.replaceAll("<[^>]*>","");
+                    JSONObject obj = new JSONObject();
+                    obj.put("label", label);
+                    obj.put("uri", entry.getJSONArray("resource").getString(0));
+                    if(entry.has("comment"))
+                        obj.put("comment", entry.getJSONArray("comment").getString(0));
+                    dbpediaArray.put(obj);
+                }
+            }
+
+            result.put("snomedct", snomedArray);
+            result.put("foodon", foodOnArray);
+            result.put("dbpedia", dbpediaArray);
+
+            return result.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Map<Integer, Integer> countPossibleMappings() {
+        Map<Integer, Integer> possibleMappingNumber = new HashMap<>();
+        List<Food> foodList = foodRepository.findAll();
+        foodList.forEach(food -> {
+            String term = food.getName();
+            Integer possibleMappings = possibleMappings(term);
+            if(possibleMappings > 30) possibleMappings = 30;
+            possibleMappingNumber.computeIfAbsent(possibleMappings, k -> 0);
+            possibleMappingNumber.computeIfPresent(possibleMappings, (key, val) -> val + 1);
+        });
+        return possibleMappingNumber;
+    }
+
+    public Integer possibleMappings(String term) {
+        String foodON = "http://www.ontobee.org/api/search?ontology=FOODON&term=";
+        String SNOMEDCT = "http://data.bioontology.org/search?ontologies=SNOMEDCT&pagesize=10&apikey=d01734b9-8dc5-414c-bef1-d7cd327ccc99&q=";
+        String dbPedia = "https://lookup.dbpedia.org/api/search?format=JSON&query=";
+
+        JSONArray json;
+        Integer result = 0;
+        try {
+            //SNOMEDCT
+            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(SNOMEDCT.concat(term))).getJSONArray("collection");
+            if(json != null) {
+                result += json.length();
+            }
+
+            //FOODON
+            json = HttpUtils.getJSONArrayFromUrl(foodON.concat(term));
+            if(json != null) {
+                result += json.length();
+            }
+
+            //DBPedia
+            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
+            if(json != null) {
+                result += json.length();
+            }
+
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     @Override
     public void refreshMV() {

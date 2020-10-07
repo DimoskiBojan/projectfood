@@ -23,13 +23,17 @@ const Home = (props) => {
             $('#foodCategoryModal').on('show.bs.modal', function (event) {
                 let link = $(event.relatedTarget);
                 let category = link.data('category');
-                console.log(category);
+
                 axios.get(`/api/food?category=${category}`).then((response) => {
                     setFoods(response.data);
                 });
             })
         });
     });
+
+    const closeModal = () => {
+        $("#foodCategoryModal").modal("toggle");
+    }
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -62,10 +66,10 @@ const Home = (props) => {
                             <div>
                                 <div className="row">
                                     {foods.map(food => (
-                                        <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                            <a href={`/food/${food.id}/details`} className="text-info h6">
+                                        <div className="col-12 col-md-6 col-lg-4 mb-3" key={food.id}>
+                                            <Link to={`/food/${food.id}/details`} className="text-info h6" onClick={closeModal}>
                                                 {food.name}
-                                            </a>
+                                            </Link>
                                         </div>
                                     ))}
                                 </div>

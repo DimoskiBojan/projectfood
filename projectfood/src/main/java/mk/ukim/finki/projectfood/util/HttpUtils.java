@@ -30,7 +30,7 @@ public final class HttpUtils {
     }
 
     public static JSONArray getJSONArrayFromUrl(String url) {
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
         HttpURLConnection httpURLConnection = null;
         String jsonString = null;
 
@@ -39,7 +39,7 @@ public final class HttpUtils {
             httpURLConnection = (HttpURLConnection) u.openConnection();
             httpURLConnection.setRequestMethod("GET");
             if(httpURLConnection.getResponseCode() >= 400){
-                return null;
+                return jsonArray;
             }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
             StringBuilder stringBuilder = new StringBuilder();
@@ -67,7 +67,7 @@ public final class HttpUtils {
     }
 
     public static JSONObject getJSONObjectFromUrl(String url) {
-        JSONObject jsonObject = null;
+        JSONObject jsonObject = new JSONObject();
         HttpURLConnection httpURLConnection = null;
         String jsonString = null;
 
@@ -77,7 +77,7 @@ public final class HttpUtils {
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty("Accept", "application/json");
             if(httpURLConnection.getResponseCode() >= 400){
-                return null;
+                return jsonObject;
             }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
             StringBuilder stringBuilder = new StringBuilder();

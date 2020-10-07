@@ -149,8 +149,8 @@ const ComponentDetails = (props) => {
                                 <td className="bg-info text-white font-weight-bold">Same As:</td>
                                 <td>
                                     <ul>
-                                        {splitSameAs(component.sameAs).map(sameAs => (
-                                            <li><a href={sameAs} target="_blank">{sameAs}</a></li>
+                                        {splitSameAs(component.sameAs).map((sameAs, index) => (
+                                            <li key={index}><a href={sameAs} target="_blank" rel="noopener noreferrer">{sameAs}</a></li>
                                         ))}
                                     </ul>
                                 </td>
@@ -170,9 +170,9 @@ const ComponentDetails = (props) => {
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {component.foodComponents && component.foodComponents.map(foodComponent => (
-                                                    <tr>
-                                                        <td><a href={"/food/" + foodComponent.id.foodId + "/details"}>{foodComponent.foodName}</a></td>
+                                                {component.foodComponents && component.foodComponents.map((foodComponent, index) => (
+                                                    <tr key={index}>
+                                                        <td><Link to={"/food/" + foodComponent.id.foodId + "/details"}>{foodComponent.foodName}</Link></td>
                                                         <td>{String(foodComponent.wasteStreamName)}</td>
                                                     </tr>
                                                 ))}

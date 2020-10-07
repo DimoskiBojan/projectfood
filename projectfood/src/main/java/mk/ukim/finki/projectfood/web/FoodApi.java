@@ -5,11 +5,14 @@ import mk.ukim.finki.projectfood.model.FoodComponent;
 import mk.ukim.finki.projectfood.model.views.FoodsShowView;
 import mk.ukim.finki.projectfood.service.FoodComponentService;
 import mk.ukim.finki.projectfood.service.FoodService;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -47,6 +50,16 @@ public class FoodApi {
                       @RequestParam String sameAs) {
         return foodService.updateFoodSameAs(id, sameAs);
     }
+
+    @GetMapping("/lookup")
+    public String lookupExternal(String term) {
+        return foodService.lookupExternal(term);
+    }
+
+//    @GetMapping("/lookup/count-possible-mappings")
+//    public Map<Integer, Integer> countPossibleMappings() {
+//        return foodService.countPossibleMappings();
+//    }
 
     @GetMapping("/streams")
     public List<FoodComponent> getAllFoodComponentsAndWasteStreams() {

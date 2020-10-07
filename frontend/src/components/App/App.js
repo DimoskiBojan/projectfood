@@ -19,6 +19,7 @@ import AdminLogin from "../Login/adminLogin";
 import Register from "../Register/register";
 import StreamsList from "../Streams/StreamsList/streamsList";
 import ComponentCompoundsMap from "../Component/ComponentCompoundsMap/componentCompoundsMap";
+import FoodExternalMap from "../Food/FoodExternalMap/foodExternalMap";
 
 class App extends Component {
 
@@ -67,8 +68,8 @@ class App extends Component {
     }), "nutrients-area");
   };
 
-  updateFoodSameAs = (food) => {
-    foodService.updateFoodSameAs(food).then(response => {
+  updateFoodSameAs = (foodId, mapping) => {
+    foodService.updateFoodSameAs(foodId, mapping).then(response => {
       const newFood = response.data;
       this.setState((prevState) => {
         const newFoodRef = prevState.food.map((item)=>{
@@ -105,6 +106,10 @@ class App extends Component {
                  <Route path={"/food/:foodId/details"}>
                    <LoadingIndicator/>
                    <FoodDetails/>
+                 </Route>
+                 <Route path={"/food/:foodId/map"}>
+                   <LoadingIndicator/>
+                   <FoodExternalMap onUpdate={this.updateFoodSameAs}/>
                  </Route>
                  <Route path={"/food/"}>
                    <LoadingIndicator area={"foods-area"}/>

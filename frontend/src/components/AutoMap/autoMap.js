@@ -34,6 +34,13 @@ const AutoMap = (props) => {
         }), "automap-area");
     };
 
+    const autoMapComponentToExternal = () => {
+        trackPromise(
+            axios.get("/api/automap/component-external").then((response) => {
+                setAutoMap({"status": "Complete"});
+            }), "automap-area");
+    };
+
     return (
         <div>
             <div className="row">
@@ -41,17 +48,20 @@ const AutoMap = (props) => {
             </div>
             <hr/>
             <div className="row">
-                <div className={"col-3"}>
+                <div className={"col-2"}>
                     <button type="button" className="btn btn-info" onClick={autoMapFoodToExternal}>Food to External</button>
                 </div>
-                <div className={"col-3"}>
+                <div className={"col-2"}>
                     <button type="button" className="btn btn-info" onClick={autoMapFoodToFoods}>Food to Foods</button>
                 </div>
-                <div className={"col-3"}>
+                <div className={"col-2"}>
                     <button type="button" className="btn btn-info" onClick={autoMapFoodsToDbpedia}>Foods to DBpedia</button>
                 </div>
                 <div className={"col-3"}>
                     <button type="button" className="btn btn-info" onClick={autoMapComponentToCompounds}>Component to Compounds</button>
+                </div>
+                <div className={"col-3"}>
+                    <button type="button" className="btn btn-info" onClick={autoMapComponentToExternal}>Component to External</button>
                 </div>
             </div>
             <hr/>

@@ -2,9 +2,12 @@ package mk.ukim.finki.projectfood.service;
 
 import mk.ukim.finki.projectfood.model.Food;
 import mk.ukim.finki.projectfood.model.views.FoodsShowView;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FoodService {
     List<Food> getAllFoods();
@@ -30,6 +33,10 @@ public interface FoodService {
     void mapFoodToFOODON();
 
     void mapFoodToSNOMEDCT();
+
+    String lookupExternal(String term);
+
+    Map<Integer, Integer> countPossibleMappings();
 
     void refreshMV();
 }

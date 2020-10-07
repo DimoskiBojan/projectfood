@@ -63,6 +63,8 @@ const ComponentCompoundsMap = (props) => {
         $('.toast').toast('show');
     };
 
+    const handleVerifyMapping = (e) => {};
+
     if(typeof component.name === 'undefined') return null;
     return (
         <div>
@@ -72,6 +74,10 @@ const ComponentCompoundsMap = (props) => {
                 <button className="btn btn-success btn-sm align-self-end ml-auto"
                         onClick={handleSaveMapping}>
                     Save
+                </button>
+                <button className="btn btn-primary btn-sm align-self-end ml-2"
+                        onClick={handleVerifyMapping}>
+                    Verify
                 </button>
             </div>
             <hr/>
@@ -110,8 +116,8 @@ const ComponentCompoundsMap = (props) => {
                                             The lookup didn't find any possible mappings.
                                         </div>
                                         }
-                                    {lookup && lookup.map(compound => (
-                                        <div className="col-12 col-md-6 col-lg-4 mb-3">
+                                    {lookup && lookup.map((compound, index) => (
+                                        <div className="col-12 col-md-6 col-lg-4 mb-3" key={index}>
                                             <a href="#"
                                                className="text-info h6"
                                                data-toggle="popover"
@@ -158,8 +164,8 @@ const ComponentCompoundsMap = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="toast bg-success" style={{position: "relative", top: 0, right: 0}}>
-                <div className="toast-body">
+            <div className="toast bg-success" style={{position: "absolute", top: "7%", left: 0, right: 0, marginLeft: "auto", marginRight: "auto", width: "200px"}}>
+                <div className="toast-body text-white">
                     Changes saved.
                 </div>
             </div>
