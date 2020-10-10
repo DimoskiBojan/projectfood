@@ -19,6 +19,8 @@ public class FoodsShowView {
     @Column(name="food_id")
     private Integer id;
 
+    private Integer foodb_id;
+
     private String name;
 
     private String name_scientific;

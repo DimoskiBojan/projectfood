@@ -28,6 +28,8 @@ public interface FoodService {
 
     Food updateFoodSameAsSingleUrl(Integer id, String sameAs);
 
+    Food updateFoodFooDBId(Integer id, Integer foodbId);
+
     void mapFoodToFoods();
 
     void mapFoodToFOODON();

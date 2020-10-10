@@ -20,6 +20,7 @@ import Register from "../Register/register";
 import StreamsList from "../Streams/StreamsList/streamsList";
 import ComponentCompoundsMap from "../Component/ComponentCompoundsMap/componentCompoundsMap";
 import FoodExternalMap from "../Food/FoodExternalMap/foodExternalMap";
+import FoodFoodsMap from "../Food/FoodFoodsMap/foodFoodsMap";
 
 class App extends Component {
 
@@ -69,6 +70,8 @@ class App extends Component {
   };
 
   updateFoodSameAs = (foodId, mapping) => {
+    console.log(foodId);
+    console.log(mapping);
     foodService.updateFoodSameAs(foodId, mapping).then(response => {
       const newFood = response.data;
       this.setState((prevState) => {
@@ -82,6 +85,12 @@ class App extends Component {
           "food": newFoodRef
         }
       });
+    })
+  };
+
+  updateFoodFooDBId = (id, foodbId) => {
+    foodService.updateFoodFooDBId(id, foodbId).then(response => {
+      this.loadFood();
     })
   };
 
@@ -107,9 +116,13 @@ class App extends Component {
                    <LoadingIndicator/>
                    <FoodDetails/>
                  </Route>
-                 <Route path={"/food/:foodId/map"}>
+                 <Route path={"/food/:foodId/map-external"}>
                    <LoadingIndicator/>
                    <FoodExternalMap onUpdate={this.updateFoodSameAs}/>
+                 </Route>
+                 <Route path={"/food/:foodId/map-foodb"}>
+                   <LoadingIndicator/>
+                   <FoodFoodsMap onUpdate={this.updateFoodFooDBId}/>
                  </Route>
                  <Route path={"/food/"}>
                    <LoadingIndicator area={"foods-area"}/>
@@ -119,7 +132,7 @@ class App extends Component {
                    <LoadingIndicator/>
                    <ComponentDetails/>
                  </Route>
-                 <Route path={"/component/:componentId/map-compounds"}>
+                 <Route path={"/component/:componentId/map-foodb"}>
                    <LoadingIndicator/>
                    <ComponentCompoundsMap onUpdate={this.updateComponentCompoundId}/>
                  </Route>

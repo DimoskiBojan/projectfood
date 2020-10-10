@@ -45,13 +45,19 @@ public class FoodApi {
         return foodService.getFoodShow(id);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping(value = "/{id}/sameas")
     public Food updateFoodSameAs(@PathVariable("id") Integer id,
                       @RequestParam String sameAs) {
         return foodService.updateFoodSameAs(id, sameAs);
     }
 
-    @GetMapping("/lookup")
+    @PatchMapping(value = "/{id}/foodb-id")
+    public Food updateFoodFooDBId(@PathVariable("id") Integer id,
+                                 @RequestParam Integer foodbId) {
+        return foodService.updateFoodFooDBId(id, foodbId);
+    }
+
+    @GetMapping("/lookup/external")
     public String lookupExternal(String term) {
         return foodService.lookupExternal(term);
     }

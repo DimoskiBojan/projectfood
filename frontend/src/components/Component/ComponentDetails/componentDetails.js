@@ -149,6 +149,13 @@ const ComponentDetails = (props) => {
                                 <td className="bg-info text-white font-weight-bold">Same As:</td>
                                 <td>
                                     <ul>
+                                        {component.foodb_id && (
+                                            <li>
+                                                <a href={`https://foodb.ca/compounds/${component.foodb_id}`} target="_blank" rel="noopener noreferrer">
+                                                    {`https://foodb.ca/compounds/${component.foodb_id}`}
+                                                </a>
+                                            </li>
+                                        )}
                                         {splitSameAs(component.sameAs).map((sameAs, index) => (
                                             <li key={index}><a href={sameAs} target="_blank" rel="noopener noreferrer">{sameAs}</a></li>
                                         ))}

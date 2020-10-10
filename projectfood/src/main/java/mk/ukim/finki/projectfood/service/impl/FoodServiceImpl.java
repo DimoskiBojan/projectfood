@@ -1,8 +1,10 @@
 package mk.ukim.finki.projectfood.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import mk.ukim.finki.projectfood.model.Component;
 import mk.ukim.finki.projectfood.model.Food;
 import mk.ukim.finki.projectfood.model.Foods;
+import mk.ukim.finki.projectfood.model.events.ComponentUpdatedEvent;
 import mk.ukim.finki.projectfood.model.events.FoodUpdatedEvent;
 import mk.ukim.finki.projectfood.model.exceptions.FoodNotFoundException;
 import mk.ukim.finki.projectfood.model.views.FoodsShowView;
@@ -90,14 +92,21 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Food updateFoodSameAsSingleUrl(Integer id, String sameAs) {
         Food food = this.getFood(id);
-        if (food.getSameAs() != null && !food.getSameAs().isEmpty()) {
-            if(!food.getSameAs().contains(sameAs)) {
-                String newSameAs = food.getSameAs().concat(";" + sameAs);
-                food.setSameAs(newSameAs);
-            }
-        } else {
-            food.setSameAs(";" + sameAs);
-        }
+        checkAndSetSameAsSingleUrl(food, sameAs);
+
+        foodRepository.save(food);
+        eventPublisher.publishEvent(new FoodUpdatedEvent(food));
+
+        return food;
+    }
+
+    @Override
+    public Food updateFoodFooDBId(Integer id, Integer foodbId) {
+        Food food = this.getFood(id);
+        Foods foodb = foodsService.getFood(foodbId);
+        food.setFoodb_id(foodb);
+        String foodbSameAs = foodb.getSameAs();
+        checkAndSetSameAsSingleUrl(food, foodbSameAs);
 
         foodRepository.save(food);
         eventPublisher.publishEvent(new FoodUpdatedEvent(food));
@@ -112,6 +121,8 @@ public class FoodServiceImpl implements FoodService {
             Foods foodb = foodsService.getFoodByName(food.getName());
             if(foodb != null){
                 food.setFoodb_id(foodb);
+                String foodbSameAs = foodb.getSameAs();
+                checkAndSetSameAsSingleUrl(food, foodbSameAs);
             }
         });
         foodRepository.saveAll(foods);
@@ -318,5 +329,16 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public void refreshMV() {
         foodsShowViewRepository.refreshMV();
+    }
+
+    private void checkAndSetSameAsSingleUrl(Food food, String sameAs) {
+        if (food.getSameAs() != null && !food.getSameAs().isEmpty()) {
+            if(!food.getSameAs().contains(sameAs)) {
+                String newSameAs = food.getSameAs().concat(";" + sameAs);
+                food.setSameAs(newSameAs);
+            }
+        } else {
+            food.setSameAs(";" + sameAs);
+        }
     }
 }

@@ -67,6 +67,13 @@ const FoodDetails = (props) => {
                                 <td className="bg-info text-white font-weight-bold">Same As:</td>
                                 <td>
                                     <ul>
+                                        {food.foodb_id && (
+                                            <li>
+                                                <a href={`https://foodb.ca/foods/${food.foodb_id}`} target="_blank" rel="noopener noreferrer">
+                                                    {`https://foodb.ca/foods/${food.foodb_id}`}
+                                                </a>
+                                            </li>
+                                        )}
                                         {splitSameAs(food.sameAs).map((sameAs, index) => (
                                             <li key={index}><a href={sameAs} target="_blank" rel="noopener noreferrer">{sameAs}</a></li>
                                         ))}

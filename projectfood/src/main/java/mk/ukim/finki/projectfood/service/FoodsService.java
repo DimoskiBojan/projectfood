@@ -7,6 +7,8 @@ import java.util.List;
 public interface FoodsService {
     List<Foods> getAllFoods();
 
+    Foods getFood(Integer id);
+
     Foods getFoodByName(String name);
 
     void populateSameAs();

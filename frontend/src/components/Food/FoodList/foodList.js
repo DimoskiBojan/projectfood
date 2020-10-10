@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import FoodListItem from "../FoodListItem/foodListItem";
+import {isAuthenticated} from "../../../repository/userRepository";
 import $ from 'jquery';
 import 'datatables.net';
 
@@ -28,7 +29,7 @@ const FoodList = (props) => {
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Actions</th>
+                        {isAuthenticated() && (<th scope="col">Actions</th>)}
                     </tr>
                     </thead>
                     <tbody className="h6">

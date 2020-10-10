@@ -1,6 +1,8 @@
 package mk.ukim.finki.projectfood.service.impl;
 
+import mk.ukim.finki.projectfood.model.Compounds;
 import mk.ukim.finki.projectfood.model.Foods;
+import mk.ukim.finki.projectfood.model.exceptions.CompoundNotFoundException;
 import mk.ukim.finki.projectfood.repository.FoodsRepository;
 import mk.ukim.finki.projectfood.service.FoodsService;
 import mk.ukim.finki.projectfood.util.HttpUtils;
@@ -24,6 +26,11 @@ public class FoodsServiceImpl implements FoodsService {
     @Override
     public List<Foods> getAllFoods() {
         return foodsRepository.findAll();
+    }
+
+    @Override
+    public Foods getFood(Integer id) {
+        return foodsRepository.findById(id).orElseThrow(CompoundNotFoundException::new);
     }
 
     @Override

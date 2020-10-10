@@ -16,7 +16,7 @@ const Register = (props) => {
     const submitRegister = (e) => {
         e.preventDefault();
         signUp(userInfo)
-            .then(token => window.location = '/login')
+            .then(token => window.location = '/fw2/index.html#/login')
             .catch(err => alert(err));
     }
 

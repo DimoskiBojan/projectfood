@@ -34,9 +34,14 @@ const header = (props) => {
                             <li className="nav-item ">
                                 <Link className={"nav-link"} to={"/streams"}>Waste Streams</Link>
                             </li>
-                            <li className="nav-item ">
-                                <Link className={"nav-link"} to={"/automap"}>AutoMap</Link>
-                            </li>
+                            {
+                                isAuthenticated() &&
+                                (
+                                    <li className="nav-item ">
+                                        <Link className={"nav-link"} to={"/automap"}>AutoMap</Link>
+                                    </li>
+                                )
+                            }
                         </ul>
                         {
                             isAuthenticated() && (<div className={"text-white"}>Hello {user}</div>)

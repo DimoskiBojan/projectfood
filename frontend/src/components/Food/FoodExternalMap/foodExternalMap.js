@@ -63,7 +63,7 @@ const FoodExternalMap = (props) => {
     const getLookup = (term) => {
         if(term !== undefined) {
             trackPromise(
-                axios.get("/api/food/lookup?term=" + term).then((response) => {
+                axios.get("/api/food/lookup/external?term=" + term).then((response) => {
                     let filteredLookup = [...response.data.dbpedia, ...response.data.snomedct, ...response.data.foodon];
                     if (food.sameAs) {
                         filteredLookup = filteredLookup.filter(lookup => !food.sameAs.includes(lookup.uri));
@@ -82,7 +82,7 @@ const FoodExternalMap = (props) => {
         <div>
             <div className="row">
                 <Link to={"/food"} className="btn btn-sm btn-info mr-2">Back to Foods</Link>
-                <h4 className="text-upper text-left">Mappings for {food.name}</h4>
+                <h4 className="text-upper text-left">External Mappings for {food.name}</h4>
                 <button className="btn btn-success btn-sm align-self-end ml-auto"
                         onClick={handleSaveMapping}>
                     Save
@@ -125,15 +125,15 @@ const FoodExternalMap = (props) => {
                                 </td>
                             </tr>
                             <tr>
-                                <td className="bg-secondary text-white font-weight-bold">Possible Mappings</td>
-                                <td className="bg-secondary text-white font-weight-bold">Mapped External Links</td>
+                                <td className="bg-secondary text-white font-weight-bold">Candidate Mappings</td>
+                                <td className="bg-secondary text-white font-weight-bold">Confirmed Mappings</td>
                             </tr>
                             <tr>
                                 <td className="bg-light font-weight-bold">
                                     <div className="row">
                                         {typeof lookup === 'undefined' &&
                                         <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                            The lookup didn't find any possible mappings.
+                                            The lookup didn't find any candidate mappings.
                                         </div>
                                         }
                                         {lookup && lookup.map((lookup, index) => (
@@ -162,13 +162,13 @@ const FoodExternalMap = (props) => {
                                     </div>
                                     <LoadingIndicator area={"lookup-area"}/>
                                 </td>
-                                <td className="font-weight-bold">
+                                <td className="font-weight-bold w-40">
                                     {splitSameAs(mapping).map(sameAs => (
                                         <div className="col-12" key={sameAs}>
                                             <a href={sameAs}
                                                target="_blank"
                                                rel="noopener noreferrer"
-                                               className="text-info h6"
+                                               className="text-info h6 word-break-all"
                                                data-toggle="popover"
                                                data-trigger="hover"
                                                title={sameAs}

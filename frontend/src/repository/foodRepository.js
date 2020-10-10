@@ -19,10 +19,15 @@ const FoodService = {
     fetchById: (foodId) => {
         return axios.get(`/api/food/${foodId}`);
     },
-    updateFoodSameAs: (food) => {
-        const foodId = food.id;
-        const formParams = qs.stringify(food);
-        return axios.patch(`/api/food/${foodId}`, formParams, {
+    updateFoodSameAs: (foodId, mapping) => {
+        return axios.patch(`/api/food/${foodId}/sameas`, qs.stringify({'sameAs': mapping}), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+    },
+    updateFoodFooDBId: (id, foodbId) => {
+        return axios.patch(`/api/food/${id}/foodb-id`, qs.stringify({'foodbId': foodbId}), {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

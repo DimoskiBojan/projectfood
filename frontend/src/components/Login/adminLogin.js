@@ -16,7 +16,7 @@ const AdminLogin = (props) => {
     const submitLogin = (e) => {
         e.preventDefault();
         login(userInfo)
-            .then(token => window.location = '/')
+            .then(token => window.location = '/fw2/index.html#/')
             .catch(err => alert(err));
     }
 

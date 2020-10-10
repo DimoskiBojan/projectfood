@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import ComponentListItem from "../ComponentListItem/componentListItem";
+import {isAuthenticated} from "../../../repository/userRepository";
 import $ from 'jquery';
 import 'datatables.net';
 
@@ -8,7 +9,13 @@ const ComponentList = (props) => {
     useEffect(() => {
         $(document).ready( function () {
             // DataTable
-            $('#componentTable').DataTable();
+            $('#componentTable').DataTable(
+                {
+                    "columnDefs": [
+                        { "width": "35%", "targets": 0 }
+                    ]
+                }
+            );
         });
     });
 
@@ -29,7 +36,7 @@ const ComponentList = (props) => {
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Formula</th>
-                        <th scope="col">Actions</th>
+                        {isAuthenticated() && (<th scope="col">Actions</th>)}
                     </tr>
                     </thead>
                     <tbody className="h6">

@@ -26,6 +26,7 @@ const ComponentCompoundsMap = (props) => {
         if(component.foodb_id != null) {
             setMapping({
                 compoundId: component.foodb_id,
+                compoundPublicId: component.foodb_id,
                 compoundName: component.name,
                 compoundDescription: component.description
             })
@@ -48,6 +49,7 @@ const ComponentCompoundsMap = (props) => {
         e.preventDefault();
         setMapping({
             compoundId: e.currentTarget.getAttribute('data-id'),
+            compoundPublicId: e.currentTarget.getAttribute('data-public-id'),
             compoundName: e.currentTarget.getAttribute('data-name'),
             compoundDescription: e.currentTarget.getAttribute('data-description')
         });
@@ -70,7 +72,7 @@ const ComponentCompoundsMap = (props) => {
         <div>
             <div className="row">
                 <Link to={"/component"} className="btn btn-sm btn-info mr-2">Back to Components</Link>
-                <h4 className="text-upper text-left">Mappings for {component.name}</h4>
+                <h4 className="text-upper text-left">FooDB Mappings for {component.name}</h4>
                 <button className="btn btn-success btn-sm align-self-end ml-auto"
                         onClick={handleSaveMapping}>
                     Save
@@ -105,7 +107,7 @@ const ComponentCompoundsMap = (props) => {
                                 <td></td>
                             </tr>
                             <tr>
-                                <td className="bg-secondary text-white font-weight-bold">Possible Mappings</td>
+                                <td className="bg-secondary text-white font-weight-bold">Candidate Mappings</td>
                                 <td className="bg-secondary text-white font-weight-bold">Mapped Compound</td>
                             </tr>
                             <tr>
@@ -113,12 +115,14 @@ const ComponentCompoundsMap = (props) => {
                                     <div className="row">
                                         {lookup.length === 0 &&
                                         <div className="col-12 col-md-6 col-lg-4 mb-3">
-                                            The lookup didn't find any possible mappings.
+                                            The lookup didn't find any candidate mappings.
                                         </div>
                                         }
                                     {lookup && lookup.map((compound, index) => (
                                         <div className="col-12 col-md-6 col-lg-4 mb-3" key={index}>
-                                            <a href="#"
+                                            <a href={`https://foodb.ca/compounds/${compound.public_id}`}
+                                               target="_blank"
+                                               rel="noopener noreferrer"
                                                className="text-info h6"
                                                data-toggle="popover"
                                                data-trigger="hover"
@@ -131,6 +135,7 @@ const ComponentCompoundsMap = (props) => {
                                                name={"test"}
                                                onClick={handleAddNewMapping}
                                                data-id={compound.id}
+                                               data-public-id={compound.public_id}
                                                data-name={compound.name}
                                                data-description={compound.description || "No description"}>
                                                 <span>+</span>
@@ -143,7 +148,9 @@ const ComponentCompoundsMap = (props) => {
                                 <td className="font-weight-bold">
                                     {mapping.compoundName &&
                                     (<div>
-                                        <a href="#"
+                                        <a href={`https://foodb.ca/compounds/${mapping.compoundPublicId}`}
+                                           target="_blank"
+                                           rel="noopener noreferrer"
                                            className="text-info h6"
                                            data-toggle="popover"
                                            data-trigger="hover"
