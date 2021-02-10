@@ -115,7 +115,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public void mapFoodToFoods(){
+    public List<Food> mapFoodToFoods(){
         List<Food> foods = this.getAllFoods();
         foods.forEach(food -> {
             Foods foodb = foodsService.getFoodByName(food.getName());
@@ -125,7 +125,7 @@ public class FoodServiceImpl implements FoodService {
                 checkAndSetSameAsSingleUrl(food, foodbSameAs);
             }
         });
-        foodRepository.saveAll(foods);
+        return foodRepository.saveAll(foods);
     }
 
     @Override
@@ -251,26 +251,26 @@ public class FoodServiceImpl implements FoodService {
             }
 
             //DBPedia
-            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
-            if(json != null && json.length() != 0) {
-                int i;
-                for (i = 0; i < json.length(); ++i) {
-                    JSONObject entry;
-                    entry = json.getJSONObject(i);
-                    String label = entry.getJSONArray("label").getString(0);
-                    label = label.replaceAll("<[^>]*>","");
-                    JSONObject obj = new JSONObject();
-                    obj.put("label", label);
-                    obj.put("uri", entry.getJSONArray("resource").getString(0));
-                    if(entry.has("comment"))
-                        obj.put("comment", entry.getJSONArray("comment").getString(0));
-                    dbpediaArray.put(obj);
-                }
-            }
+//            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
+//            if(json != null && json.length() != 0) {
+//                int i;
+//                for (i = 0; i < json.length(); ++i) {
+//                    JSONObject entry;
+//                    entry = json.getJSONObject(i);
+//                    String label = entry.getJSONArray("label").getString(0);
+//                    label = label.replaceAll("<[^>]*>","");
+//                    JSONObject obj = new JSONObject();
+//                    obj.put("label", label);
+//                    obj.put("uri", entry.getJSONArray("resource").getString(0));
+//                    if(entry.has("comment"))
+//                        obj.put("comment", entry.getJSONArray("comment").getString(0));
+//                    dbpediaArray.put(obj);
+//                }
+//            }
 
             result.put("snomedct", snomedArray);
             result.put("foodon", foodOnArray);
-            result.put("dbpedia", dbpediaArray);
+//            result.put("dbpedia", dbpediaArray);
 
             return result.toString();
         } catch (JSONException e) {
@@ -314,16 +314,16 @@ public class FoodServiceImpl implements FoodService {
             }
 
             //DBPedia
-            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
-            if(json != null) {
-                result += json.length();
-            }
+//            json = Objects.requireNonNull(HttpUtils.getJSONObjectFromUrl(dbPedia.concat(term))).getJSONArray("docs");
+//            if(json != null) {
+//                result += json.length();
+//            }
 
             return result;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return 0;
+        return result;
     }
 
     @Override

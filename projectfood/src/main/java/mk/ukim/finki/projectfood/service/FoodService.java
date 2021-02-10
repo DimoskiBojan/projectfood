@@ -30,7 +30,7 @@ public interface FoodService {
 
     Food updateFoodFooDBId(Integer id, Integer foodbId);
 
-    void mapFoodToFoods();
+    List<Food> mapFoodToFoods();
 
     void mapFoodToFOODON();
 

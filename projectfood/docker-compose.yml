@@ -17,3 +17,20 @@ services:
     #   Set a volume some that database is not lost after shutting down the container.
     volumes:
       - /var/lib/postgresql/data
+  #  Create a service named pg-db-test.
+  pg-db-test:
+    #   Use custom bootstraped postgres.
+    image: postgres:12.3
+    #   Give the container the name pfood_postgres. 
+    container_name: "pfood_postgres_test"
+    #   Setup the username, password, and database name. 
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret123
+      - POSTGRES_DB=pfood
+    #   Maps port 54321 (localhost) to port 5432 on the container.
+    ports:
+      - "54321:5432"
+    #   Set a volume some that database is not lost after shutting down the container.
+    volumes:
+      - /var/lib/postgresql/data
